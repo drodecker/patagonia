@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patagonia Trip Itinerary — Futaleufú + Buenos Aires</title>
+  <meta name="description" content="Structured travel itinerary for Earth River Futaleufú multi-lodge with Argentina exit via Esquel to Buenos Aires." />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1 id="title">Patagonia Trip Itinerary</h1>
+      <div class="sub">Earth River Futaleufú · Argentina exit · Feb 2027 · Research only — nothing booked</div>
+      <div class="actions">
+        <a class="btn primary" href="itinerary.csv" download="patagonia-itinerary.csv">Download CSV</a>
+        <a class="btn" href="itinerary.json" download>JSON</a>
+      </div>
+    </header>
+
+    <aside class="list-pane">
+      <div class="filter-bar">
+        <button type="button" class="chip on" data-filter="all">All</button>
+        <button type="button" class="chip" data-filter="move">Moves</button>
+        <button type="button" class="chip" data-filter="er">Earth River</button>
+        <button type="button" class="chip" data-filter="own">On your own</button>
+      </div>
+      <div class="status" id="status">Loading…</div>
+      <div id="leg-list"></div>
+    </aside>
+
+    <main class="map-pane">
+      <div id="map" role="application" aria-label="Trip map"></div>
+      <div id="map-fallback" class="map-fallback" aria-live="polite">
+        <div class="card">
+          <h2>Map unavailable</h2>
+          <p class="msg">Configure a map API key to show the route.</p>
+        </div>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="dashed" style="border-color:#5dade2"></i> Air / charter</span>
+        <span><i style="border-color:#58d68d"></i> Road / van</span>
+        <span><i style="border-color:#48c9b0"></i> Taxi</span>
+        <span><i class="dotted" style="border-color:#a569bd"></i> Ferry</span>
+        <span><i class="dashed" style="border-color:#f5b041"></i> Walk / border</span>
+      </div>
+    </main>
+  </div>
+
+  <!-- Generated at container start from env (never commit real keys) -->
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var c = window.PATAGONIA_CONFIG || {};
+      var provider = (c.MAP_PROVIDER || "mapbox").toLowerCase();
+      if (provider === "google" && c.GOOGLE_MAPS_API_KEY) {
+        var s = document.createElement("script");
+        s.src = "https://maps.googleapis.com/maps/api/js?key=" +
+          encodeURIComponent(c.GOOGLE_MAPS_API_KEY) +
+          "&callback=__patagoniaInitGoogle";
+        s.async = true;
+        s.defer = true;
+        s.onerror = function () {
+          var el = document.getElementById("map-fallback");
+          if (el) {
+            el.classList.add("visible");
+            el.querySelector(".msg").textContent =
+              "Google Maps script blocked or key invalid. List still works.";
+          }
+        };
+        document.head.appendChild(s);
+      } else if (provider !== "google") {
+        var m = document.createElement("script");
+        m.src = "https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js";
+        m.async = true;
+        m.onload = function () { /* app.js starts map after data load */ };
+        m.onerror = function () {
+          var el = document.getElementById("map-fallback");
+          if (el) {
+            el.classList.add("visible");
+            el.querySelector(".msg").textContent =
+              "Mapbox GL failed to load (network). List still works.";
+          }
+        };
+        document.head.appendChild(m);
+      }
+    })();
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

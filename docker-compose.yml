@@ -1,0 +1,20 @@
+# Example deploy for patagonia.rodecker.com
+# Reverse proxy / TLS (Caddy, Traefik, nginx, Cloudflare) is left to the host —
+# point that proxy at this container's port 8080 (or change ports below).
+#
+# Usage:
+#   export MAPBOX_TOKEN=pk....
+#   # or: export MAP_PROVIDER=google GOOGLE_MAPS_API_KEY=AIza...
+#   docker compose up -d --build
+
+services:
+  patagonia:
+    build: .
+    container_name: patagonia-itinerary
+    ports:
+      - "8080:80"
+    environment:
+      MAP_PROVIDER: ${MAP_PROVIDER:-mapbox}
+      MAPBOX_TOKEN: ${MAPBOX_TOKEN:-}
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+    restart: unless-stopped
