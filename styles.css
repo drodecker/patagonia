@@ -317,3 +317,14 @@ header .actions {
 .badge.phase-earth-river { background: rgba(46,204,113,.18); color: #2ecc71; }
 .badge.phase-post { background: rgba(240,160,61,.18); color: #f0a03d; }
 #copy-link.copied { border-color: var(--er-yes); color: var(--er-yes); }
+
+/* Map popup contrast: dark text on white popup (Mapbox + Google) */
+.mapboxgl-popup-content, .gm-style .gm-style-iw-c, .gm-style .gm-style-iw-d {
+  color: #111 !important;
+}
+.mapboxgl-popup-content *, .gm-style .gm-style-iw-d * {
+  color: #111 !important;
+  opacity: 1 !important;
+}
+.mapboxgl-popup-content strong, .gm-style .gm-style-iw-d strong { font-weight: 700; }
+.mapboxgl-popup-close-button { color: #333 !important; font-size: 18px; }
