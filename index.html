@@ -14,17 +14,18 @@
       <h1 id="title">Patagonia Trip Itinerary</h1>
       <div class="sub">Earth River Futaleufú · Argentina exit · Feb 2027 · Research only — nothing booked</div>
       <div class="actions">
+        <button type="button" class="btn" id="copy-link" title="Copy shareable link for this filter">Copy link</button>
         <a class="btn primary" href="itinerary.csv" download="patagonia-itinerary.csv">Download CSV</a>
         <a class="btn" href="itinerary.json" download>JSON</a>
       </div>
     </header>
 
     <aside class="list-pane">
-      <div class="filter-bar">
-        <button type="button" class="chip on" data-filter="all">All</button>
-        <button type="button" class="chip" data-filter="move">Moves</button>
-        <button type="button" class="chip" data-filter="er">Earth River</button>
-        <button type="button" class="chip" data-filter="own">On your own</button>
+      <div class="filter-bar" role="tablist" aria-label="Trip phase">
+        <button type="button" class="chip on" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button type="button" class="chip" data-filter="pre" role="tab" aria-selected="false">Getting there</button>
+        <button type="button" class="chip" data-filter="earth-river" role="tab" aria-selected="false">Earth River</button>
+        <button type="button" class="chip" data-filter="post" role="tab" aria-selected="false">After Earth River</button>
       </div>
       <div class="status" id="status">Loading…</div>
       <div id="leg-list"></div>
@@ -48,7 +49,6 @@
     </main>
   </div>
 
-  <!-- Generated at container start from env (never commit real keys) -->
   <script src="config.js"></script>
   <script>
     (function () {
@@ -74,7 +74,6 @@
         var m = document.createElement("script");
         m.src = "https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js";
         m.async = true;
-        m.onload = function () { /* app.js starts map after data load */ };
         m.onerror = function () {
           var el = document.getElementById("map-fallback");
           if (el) {
@@ -87,6 +86,7 @@
       }
     })();
   </script>
+  
   <script src="app.js"></script>
 </body>
 </html>

@@ -312,3 +312,8 @@ header .actions {
   }
   header { position: sticky; top: 0; }
 }
+
+.badge.phase-pre { background: rgba(93,173,226,.18); color: #5dade2; }
+.badge.phase-earth-river { background: rgba(46,204,113,.18); color: #2ecc71; }
+.badge.phase-post { background: rgba(240,160,61,.18); color: #f0a03d; }
+#copy-link.copied { border-color: var(--er-yes); color: var(--er-yes); }

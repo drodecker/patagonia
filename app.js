@@ -1,4 +1,4 @@
-/* Patagonia itinerary viewer — Mapbox GL or Google Maps via MAP_PROVIDER */
+/* Patagonia itinerary viewer — phase filters, hash deep-links, Mapbox/Google */
 (function () {
   const MODE_ICON = {
     air: "✈️",
@@ -18,21 +18,37 @@
     charter: "#ec7063",
     stay: "#85929e",
   };
+  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post"]);
+  const PHASE_LABEL = {
+    all: "All",
+    pre: "Getting there",
+    "earth-river": "Earth River",
+    post: "After Earth River",
+  };
 
   const state = {
     legs: [],
     activeSeq: null,
     filter: "all",
-    map: null,
     provider: null,
-    markers: new Map(),
-    lines: [],
+    mapReady: false,
     google: { map: null, markers: [], polylines: [], info: null },
     mapbox: { map: null, markers: [] },
   };
 
   function $(sel) { return document.querySelector(sel); }
   function cfg() { return window.PATAGONIA_CONFIG || {}; }
+
+  function waitFor(pred, timeoutMs) {
+    return new Promise(function (resolve) {
+      var start = Date.now();
+      (function tick() {
+        if (pred()) return resolve(true);
+        if (Date.now() - start > timeoutMs) return resolve(false);
+        setTimeout(tick, 50);
+      })();
+    });
+  }
 
   function fmtDate(iso) {
     if (!iso) return "";
@@ -46,12 +62,16 @@
     return `<span class="badge ${k}">${label}</span>`;
   }
 
-  function isMovement(leg) {
-    return leg.mode !== "stay" || leg.from_code !== leg.to_code ||
-      (leg.from_lat !== leg.to_lat || leg.from_lng !== leg.to_lng);
+  function phaseBadge(phase) {
+    const labels = { pre: "Pre", "earth-river": "ER trip", post: "Post" };
+    return `<span class="badge phase-${phase || ""}">${labels[phase] || phase || ""}</span>`;
   }
 
-  /** Unique map points in sequence order for markers */
+  function filteredLegs() {
+    if (state.filter === "all") return state.legs.slice();
+    return state.legs.filter((l) => l.phase === state.filter);
+  }
+
   function buildPoints(legs) {
     const pts = [];
     const seen = new Map();
@@ -75,18 +95,88 @@
     return pts;
   }
 
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function shortName(n) {
+    if (!n) return "";
+    return n.length > 36 ? n.slice(0, 34) + "…" : n;
+  }
+
+  function shareUrl() {
+    const u = new URL(window.location.href);
+    if (state.activeSeq) u.hash = "leg-" + state.activeSeq;
+    else u.hash = state.filter === "all" ? "all" : state.filter;
+    return u.toString();
+  }
+
+  function setHashFromState(replace) {
+    let hash;
+    if (state.activeSeq) hash = "leg-" + state.activeSeq;
+    else hash = state.filter === "all" ? "all" : state.filter;
+    const next = "#" + hash;
+    if (window.location.hash === next) return;
+    if (replace) history.replaceState(null, "", next);
+    else history.pushState(null, "", next);
+  }
+
+  function parseHash() {
+    const raw = (window.location.hash || "").replace(/^#/, "").trim().toLowerCase();
+    if (!raw || raw === "all") return { filter: "all", leg: null };
+    if (PHASE_FILTERS.has(raw) && raw !== "all") return { filter: raw, leg: null };
+    const m = raw.match(/^leg-(\d+)$/);
+    if (m) {
+      const seq = +m[1];
+      const leg = state.legs.find((l) => l.seq === seq);
+      return { filter: leg ? leg.phase : "all", leg: seq };
+    }
+    return { filter: "all", leg: null };
+  }
+
+  function applyHash(opts) {
+    opts = opts || {};
+    if (!state.legs.length) return;
+    const parsed = parseHash();
+    state.filter = parsed.filter;
+    state.activeSeq = parsed.leg;
+    syncChips();
+    renderList();
+    refreshMap();
+    if (parsed.leg) {
+      selectLeg(parsed.leg, { fromList: false, skipHash: true, scroll: opts.scroll !== false });
+    }
+  }
+
+  function syncChips() {
+    document.querySelectorAll(".chip[data-filter]").forEach((chip) => {
+      const on = chip.dataset.filter === state.filter;
+      chip.classList.toggle("on", on);
+      chip.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
+
+  function setFilter(filter, opts) {
+    opts = opts || {};
+    if (!PHASE_FILTERS.has(filter)) filter = "all";
+    state.filter = filter;
+    if (!opts.keepLeg) state.activeSeq = null;
+    syncChips();
+    renderList();
+    refreshMap();
+    if (!opts.skipHash) setHashFromState(!!opts.replace);
+  }
+
   function renderList() {
     const host = $("#leg-list");
-    const filter = state.filter;
-    const legs = state.legs.filter((l) => {
-      if (filter === "all") return true;
-      if (filter === "er") return l.earth_river_included === "yes" || l.earth_river_included === "partial";
-      if (filter === "own") return l.earth_river_included === "no";
-      if (filter === "move") return l.mode !== "stay";
-      return true;
-    });
-
-    $("#status").textContent = `${legs.length} of ${state.legs.length} legs · home airport TBD (LAX/MIA options) · research only`;
+    const legs = filteredLegs();
+    const label = PHASE_LABEL[state.filter] || state.filter;
+    $("#status").textContent =
+      `${legs.length} of ${state.legs.length} legs · ${label} · home airport TBD · research only`;
 
     host.innerHTML = legs.map((leg) => {
       const icon = MODE_ICON[leg.mode] || "•";
@@ -111,13 +201,14 @@
           </div>
           <div class="leg-details">
             <dl>
+              <dt>Phase</dt><dd>${phaseBadge(leg.phase)} ${escapeHtml(PHASE_LABEL[leg.phase] || leg.phase || "")}</dd>
               <dt>Mode</dt><dd>${escapeHtml(leg.mode)} · ${escapeHtml(leg.provider || "")}</dd>
               <dt>Times</dt><dd>${escapeHtml(leg.start_time || "—")} → ${escapeHtml(leg.end_time || "—")}</dd>
               <dt>Distance</dt><dd>${leg.distance_km != null && leg.distance_km !== "" ? escapeHtml(String(leg.distance_km)) + " km" : "—"}</dd>
               <dt>Cost (est.)</dt><dd>${leg.cost_est_usd != null && leg.cost_est_usd !== "" ? "$" + escapeHtml(String(leg.cost_est_usd)) + " USD" : "—"} · ${escapeHtml(leg.confidence || "")}</dd>
               <dt>Booking</dt><dd>${escapeHtml(leg.booking_status || "")}</dd>
-              <dt>From</dt><dd>${escapeHtml(leg.from_name)} (${escapeHtml(leg.from_code || "")}) · ${leg.from_lat}, ${leg.from_lng}</dd>
-              <dt>To</dt><dd>${escapeHtml(leg.to_name)} (${escapeHtml(leg.to_code || "")}) · ${leg.to_lat}, ${leg.to_lng}</dd>
+              <dt>From</dt><dd>${escapeHtml(leg.from_name)} (${escapeHtml(leg.from_code || "")})</dd>
+              <dt>To</dt><dd>${escapeHtml(leg.to_name)} (${escapeHtml(leg.to_code || "")})</dd>
             </dl>
             <div class="notes">${escapeHtml(leg.notes || "")}</div>
             <div class="source">Source: ${escapeHtml(leg.source || "")}</div>
@@ -135,22 +226,28 @@
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); }
       });
     });
+
+    if (state.activeSeq) {
+      const el = document.getElementById("leg-" + state.activeSeq);
+      if (el) {
+        el.classList.add("active", "open");
+        const sum = el.querySelector(".leg-summary");
+        if (sum) sum.setAttribute("aria-expanded", "true");
+      }
+    }
   }
 
-  function shortName(n) {
-    if (!n) return "";
-    return n.length > 36 ? n.slice(0, 34) + "…" : n;
-  }
-
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
-  function selectLeg(seq, opts = {}) {
+  function selectLeg(seq, opts) {
+    opts = opts || {};
+    const leg = state.legs.find((l) => l.seq === seq);
+    if (!leg) return;
+    // If leg is outside current filter, switch filter to its phase
+    if (state.filter !== "all" && leg.phase !== state.filter) {
+      state.filter = leg.phase;
+      syncChips();
+      renderList();
+      refreshMap();
+    }
     state.activeSeq = seq;
     document.querySelectorAll(".leg").forEach((el) => {
       const on = +el.dataset.seq === seq;
@@ -159,11 +256,210 @@
       const sum = el.querySelector(".leg-summary");
       if (sum) sum.setAttribute("aria-expanded", on ? "true" : "false");
     });
-    const node = document.getElementById(`leg-${seq}`);
-    if (node && opts.fromList !== false) {
+    const node = document.getElementById("leg-" + seq);
+    if (node && opts.scroll !== false) {
       node.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
+    if (!opts.skipHash) setHashFromState(false);
     focusMapOnLeg(seq);
+  }
+
+  function lineStyle(mode) {
+    const color = MODE_COLOR[mode] || "#8899aa";
+    if (mode === "air" || mode === "charter") return { color, dashed: true, width: 2.5 };
+    if (mode === "ferry") return { color, dashed: false, width: 3, ferry: true };
+    if (mode === "walk") return { color, dashed: true, width: 3, walk: true };
+    if (mode === "stay") return null;
+    return { color, dashed: false, width: 3 };
+  }
+
+  function showFallback(msg) {
+    const el = $("#map-fallback");
+    el.classList.add("visible");
+    el.querySelector(".msg").innerHTML = msg;
+    state.provider = null;
+  }
+
+  function hideFallback() {
+    $("#map-fallback").classList.remove("visible");
+  }
+
+  function clearMapboxOverlays() {
+    const map = state.mapbox.map;
+    if (!map) return;
+    state.mapbox.markers.forEach((m) => m.remove());
+    state.mapbox.markers = [];
+    ["routes-solid", "routes-dashed", "routes-ferry"].forEach((id) => {
+      if (map.getLayer(id)) map.removeLayer(id);
+    });
+    if (map.getSource("routes")) map.removeSource("routes");
+  }
+
+  function clearGoogleOverlays() {
+    state.google.markers.forEach((m) => m.setMap(null));
+    state.google.polylines.forEach((p) => p.setMap(null));
+    state.google.markers = [];
+    state.google.polylines = [];
+    if (state.google.info) { state.google.info.close(); state.google.info = null; }
+  }
+
+  function fitPointsMapbox(points) {
+    const map = state.mapbox.map;
+    if (!map || !points.length) return;
+    if (points.length === 1) {
+      map.flyTo({ center: [points[0].lng, points[0].lat], zoom: 8, essential: true });
+      return;
+    }
+    const b = new mapboxgl.LngLatBounds();
+    points.forEach((p) => b.extend([p.lng, p.lat]));
+    map.fitBounds(b, { padding: 56, maxZoom: state.filter === "all" ? 5.5 : 8, duration: 700 });
+  }
+
+  function fitPointsGoogle(points) {
+    const map = state.google.map;
+    if (!map || !points.length) return;
+    if (points.length === 1) {
+      map.panTo({ lat: points[0].lat, lng: points[0].lng });
+      map.setZoom(8);
+      return;
+    }
+    const bounds = new google.maps.LatLngBounds();
+    points.forEach((p) => bounds.extend({ lat: p.lat, lng: p.lng }));
+    map.fitBounds(bounds, 56);
+  }
+
+  function paintMapbox(legs) {
+    const map = state.mapbox.map;
+    if (!map || !map.isStyleLoaded()) return;
+    clearMapboxOverlays();
+    const points = buildPoints(legs);
+    points.forEach((p) => {
+      const el = document.createElement("div");
+      el.className = "mb-marker";
+      el.style.cssText = "width:26px;height:26px;border-radius:50%;background:#3d9cf0;color:#041018;font:700 11px/26px system-ui;text-align:center;border:2px solid #fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4)";
+      el.textContent = String(p.markerNum);
+      el.title = p.name;
+      el.addEventListener("click", () => selectLeg(p.seqs[0]));
+      const marker = new mapboxgl.Marker({ element: el })
+        .setLngLat([p.lng, p.lat])
+        .setPopup(new mapboxgl.Popup({ offset: 16 }).setHTML(
+          `<strong>${escapeHtml(p.name)}</strong><br>${escapeHtml(p.code)} · legs ${p.seqs.join(", ")}`
+        ))
+        .addTo(map);
+      state.mapbox.markers.push(marker);
+    });
+
+    const features = [];
+    legs.forEach((leg) => {
+      if (leg.mode === "stay") return;
+      const style = lineStyle(leg.mode);
+      if (!style) return;
+      features.push({
+        type: "Feature",
+        properties: {
+          seq: leg.seq,
+          mode: leg.mode,
+          color: style.color,
+          dashed: !!style.dashed,
+          ferry: !!style.ferry,
+        },
+        geometry: {
+          type: "LineString",
+          coordinates: [
+            [+leg.from_lng, +leg.from_lat],
+            [+leg.to_lng, +leg.to_lat],
+          ],
+        },
+      });
+    });
+    map.addSource("routes", { type: "geojson", data: { type: "FeatureCollection", features } });
+    map.addLayer({
+      id: "routes-solid",
+      type: "line",
+      source: "routes",
+      filter: ["all", ["!=", ["get", "dashed"], true], ["!=", ["get", "ferry"], true]],
+      paint: { "line-color": ["get", "color"], "line-width": 3, "line-opacity": 0.85 },
+    });
+    map.addLayer({
+      id: "routes-dashed",
+      type: "line",
+      source: "routes",
+      filter: ["==", ["get", "dashed"], true],
+      paint: {
+        "line-color": ["get", "color"],
+        "line-width": 2.5,
+        "line-dasharray": [2, 2],
+        "line-opacity": 0.9,
+      },
+    });
+    map.addLayer({
+      id: "routes-ferry",
+      type: "line",
+      source: "routes",
+      filter: ["==", ["get", "ferry"], true],
+      paint: {
+        "line-color": ["get", "color"],
+        "line-width": 3,
+        "line-dasharray": [1, 1.5],
+        "line-opacity": 0.9,
+      },
+    });
+    fitPointsMapbox(points);
+  }
+
+  function paintGoogle(legs) {
+    const map = state.google.map;
+    if (!map) return;
+    clearGoogleOverlays();
+    const points = buildPoints(legs);
+    points.forEach((p) => {
+      const marker = new google.maps.Marker({
+        position: { lat: p.lat, lng: p.lng },
+        map,
+        label: { text: String(p.markerNum), color: "#041018", fontWeight: "700" },
+        title: p.name,
+      });
+      marker.addListener("click", () => selectLeg(p.seqs[0]));
+      state.google.markers.push(marker);
+    });
+    legs.forEach((leg) => {
+      if (leg.mode === "stay") return;
+      const style = lineStyle(leg.mode);
+      if (!style) return;
+      const poly = new google.maps.Polyline({
+        path: [
+          { lat: +leg.from_lat, lng: +leg.from_lng },
+          { lat: +leg.to_lat, lng: +leg.to_lng },
+        ],
+        geodesic: true,
+        strokeColor: style.color,
+        strokeOpacity: style.dashed || style.ferry || style.walk ? 0 : 0.9,
+        strokeWeight: style.width || 3,
+        map,
+        icons: style.dashed || style.ferry || style.walk
+          ? [{
+              icon: {
+                path: "M 0,-1 0,1",
+                strokeOpacity: 0.9,
+                scale: 3,
+                strokeColor: style.color,
+              },
+              offset: "0",
+              repeat: style.ferry ? "10px" : "14px",
+            }]
+          : undefined,
+      });
+      poly.addListener("click", () => selectLeg(leg.seq));
+      state.google.polylines.push(poly);
+    });
+    fitPointsGoogle(points);
+  }
+
+  function refreshMap() {
+    if (!state.mapReady) return;
+    const legs = filteredLegs();
+    if (state.provider === "mapbox") paintMapbox(legs);
+    if (state.provider === "google") paintGoogle(legs);
   }
 
   function focusMapOnLeg(seq) {
@@ -184,7 +480,6 @@
         pts.forEach((p) => b.extend(p));
         map.fitBounds(b, { padding: 80, maxZoom: 12, duration: 800 });
       }
-      // pulse marker styles via popup
       const mid = pts.length > 1
         ? [(pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2]
         : pts[0];
@@ -213,26 +508,6 @@
     }
   }
 
-  function lineStyle(mode) {
-    const color = MODE_COLOR[mode] || "#8899aa";
-    if (mode === "air" || mode === "charter") return { color, dashed: true, width: 2.5 };
-    if (mode === "ferry") return { color, dashed: false, width: 3, ferry: true };
-    if (mode === "walk") return { color, dashed: true, width: 3, walk: true };
-    if (mode === "stay") return null;
-    return { color, dashed: false, width: 3 };
-  }
-
-  function showFallback(msg) {
-    const el = $("#map-fallback");
-    el.classList.add("visible");
-    el.querySelector(".msg").innerHTML = msg;
-    state.provider = null;
-  }
-
-  function hideFallback() {
-    $("#map-fallback").classList.remove("visible");
-  }
-
   function initMapbox(token) {
     if (!window.mapboxgl) {
       showFallback("Mapbox GL JS failed to load. The itinerary list still works.");
@@ -249,93 +524,13 @@
     state.mapbox.map = map;
     state.provider = "mapbox";
     hideFallback();
-
     map.on("load", () => {
-      const points = buildPoints(state.legs);
-      points.forEach((p) => {
-        const el = document.createElement("div");
-        el.className = "mb-marker";
-        el.style.cssText = "width:26px;height:26px;border-radius:50%;background:#3d9cf0;color:#041018;font:700 11px/26px system-ui;text-align:center;border:2px solid #fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4)";
-        el.textContent = String(p.markerNum);
-        el.title = p.name;
-        el.addEventListener("click", () => selectLeg(p.seqs[0]));
-        const marker = new mapboxgl.Marker({ element: el })
-          .setLngLat([p.lng, p.lat])
-          .setPopup(new mapboxgl.Popup({ offset: 16 }).setHTML(`<strong>${escapeHtml(p.name)}</strong><br>${escapeHtml(p.code)} · legs ${p.seqs.join(", ")}`))
-          .addTo(map);
-        state.mapbox.markers.push(marker);
-      });
-
-      const features = [];
-      state.legs.forEach((leg) => {
-        if (leg.mode === "stay") return;
-        const style = lineStyle(leg.mode);
-        if (!style) return;
-        features.push({
-          type: "Feature",
-          properties: {
-            seq: leg.seq,
-            mode: leg.mode,
-            color: style.color,
-            dashed: style.dashed,
-            ferry: !!style.ferry,
-            walk: !!style.walk,
-          },
-          geometry: {
-            type: "LineString",
-            coordinates: [
-              [+leg.from_lng, +leg.from_lat],
-              [+leg.to_lng, +leg.to_lat],
-            ],
-          },
-        });
-      });
-
-      map.addSource("routes", { type: "geojson", data: { type: "FeatureCollection", features } });
-      map.addLayer({
-        id: "routes-solid",
-        type: "line",
-        source: "routes",
-        filter: ["all", ["!=", ["get", "dashed"], true], ["!=", ["get", "ferry"], true]],
-        paint: {
-          "line-color": ["get", "color"],
-          "line-width": 3,
-          "line-opacity": 0.85,
-        },
-      });
-      map.addLayer({
-        id: "routes-dashed",
-        type: "line",
-        source: "routes",
-        filter: ["==", ["get", "dashed"], true],
-        paint: {
-          "line-color": ["get", "color"],
-          "line-width": 2.5,
-          "line-dasharray": [2, 2],
-          "line-opacity": 0.9,
-        },
-      });
-      map.addLayer({
-        id: "routes-ferry",
-        type: "line",
-        source: "routes",
-        filter: ["==", ["get", "ferry"], true],
-        paint: {
-          "line-color": ["get", "color"],
-          "line-width": 3,
-          "line-dasharray": [1, 1.5],
-          "line-opacity": 0.9,
-        },
-      });
-
-      const bounds = new mapboxgl.LngLatBounds();
-      points.forEach((p) => bounds.extend([p.lng, p.lat]));
-      if (!bounds.isEmpty()) map.fitBounds(bounds, { padding: 48, maxZoom: 6 });
+      state.mapReady = true;
+      refreshMap();
     });
   }
 
-  function initGoogle(key) {
-    // Google Maps JS is loaded via callback when script tag present
+  function initGoogle() {
     if (!window.google || !google.maps) {
       showFallback("Google Maps JS failed to load. The itinerary list still works.");
       return;
@@ -354,97 +549,25 @@
     });
     state.google.map = map;
     state.provider = "google";
+    state.mapReady = true;
     hideFallback();
-
-    const points = buildPoints(state.legs);
-    const bounds = new google.maps.LatLngBounds();
-    points.forEach((p) => {
-      const marker = new google.maps.Marker({
-        position: { lat: p.lat, lng: p.lng },
-        map,
-        label: { text: String(p.markerNum), color: "#041018", fontWeight: "700" },
-        title: p.name,
-      });
-      marker.addListener("click", () => selectLeg(p.seqs[0]));
-      state.google.markers.push(marker);
-      bounds.extend(marker.getPosition());
-    });
-
-    state.legs.forEach((leg) => {
-      if (leg.mode === "stay") return;
-      const style = lineStyle(leg.mode);
-      if (!style) return;
-      const path = [
-        { lat: +leg.from_lat, lng: +leg.from_lng },
-        { lat: +leg.to_lat, lng: +leg.to_lng },
-      ];
-      const poly = new google.maps.Polyline({
-        path,
-        geodesic: true,
-        strokeColor: style.color,
-        strokeOpacity: style.dashed ? 0 : 0.9,
-        strokeWeight: style.width || 3,
-        map,
-        icons: style.dashed || style.ferry || style.walk
-          ? [{
-              icon: {
-                path: "M 0,-1 0,1",
-                strokeOpacity: 0.9,
-                scale: 3,
-                strokeColor: style.color,
-              },
-              offset: "0",
-              repeat: style.ferry ? "10px" : "14px",
-            }]
-          : undefined,
-      });
-      poly.addListener("click", () => selectLeg(leg.seq));
-      state.google.polylines.push(poly);
-    });
-
-    if (!bounds.isEmpty()) map.fitBounds(bounds, 48);
+    refreshMap();
   }
 
-  // Expose Google callback
   window.__patagoniaInitGoogle = function () {
     const key = cfg().GOOGLE_MAPS_API_KEY;
     if (!key) {
       showFallback("GOOGLE_MAPS_API_KEY is empty. Set it in Docker env. List still works.");
       return;
     }
-    const go = function () { initGoogle(key); };
-    if (state.legs && state.legs.length) go();
-    else waitFor(function () { return state.legs && state.legs.length; }, 10000).then(function (ok) {
-      if (ok) go();
-      else showFallback("Itinerary data not ready for Google Maps. List may still load.");
+    waitFor(function () { return state.legs && state.legs.length; }, 10000).then(function (ok) {
+      if (!ok) {
+        showFallback("Itinerary data not ready for Google Maps. List may still load.");
+        return;
+      }
+      initGoogle();
     });
   };
-
-  async function loadData() {
-    const res = await fetch("itinerary.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to load itinerary.json");
-    const data = await res.json();
-    state.legs = data.legs || [];
-    $("#title").textContent = data.title || "Patagonia Itinerary";
-    renderList();
-  }
-
-  function wireFilters() {
-    document.querySelectorAll(".chip").forEach((chip) => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".chip").forEach((c) => c.classList.remove("on"));
-        chip.classList.add("on");
-        state.filter = chip.dataset.filter;
-        renderList();
-        if (state.activeSeq) {
-          const still = state.legs.find((l) => l.seq === state.activeSeq);
-          // re-open if visible
-          const el = document.getElementById(`leg-${state.activeSeq}`);
-          if (el) selectLeg(state.activeSeq, { fromList: false });
-        }
-      });
-    });
-  }
 
   function startMap() {
     const c = cfg();
@@ -457,11 +580,8 @@
         );
         return;
       }
-      // Script tag should already be injecting with callback=__patagoniaInitGoogle
-      // If google already present (cached), init now
       if (window.google && google.maps) window.__patagoniaInitGoogle();
       else {
-        // wait briefly; if script missing, show fallback
         setTimeout(() => {
           if (!state.provider) {
             showFallback(
@@ -472,12 +592,10 @@
       }
       return;
     }
-
-    // mapbox default
     if (!c.MAPBOX_TOKEN) {
       showFallback(
         "No map key configured. Set <code>MAPBOX_TOKEN</code> or switch <code>MAP_PROVIDER=google</code> with <code>GOOGLE_MAPS_API_KEY</code> in Docker. " +
-        "The itinerary panels and <strong>Download CSV</strong> work without a map."
+        "The itinerary panels and <strong>Download CSV</strong> work without a map. Share filters via <code>#post</code> etc."
       );
       return;
     }
@@ -490,15 +608,36 @@
     });
   }
 
-  function waitFor(pred, timeoutMs) {
-    return new Promise(function (resolve) {
-      var start = Date.now();
-      (function tick() {
-        if (pred()) return resolve(true);
-        if (Date.now() - start > timeoutMs) return resolve(false);
-        setTimeout(tick, 50);
-      })();
+  async function loadData() {
+    const res = await fetch("itinerary.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load itinerary.json");
+    const data = await res.json();
+    state.legs = data.legs || [];
+    $("#title").textContent = data.title || "Patagonia Itinerary";
+  }
+
+  function wireFilters() {
+    document.querySelectorAll(".chip[data-filter]").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        setFilter(chip.dataset.filter);
+      });
     });
+    window.addEventListener("hashchange", () => applyHash({ scroll: true }));
+    window.addEventListener("popstate", () => applyHash({ scroll: true }));
+
+    const copyBtn = $("#copy-link");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        const url = shareUrl();
+        try {
+          await navigator.clipboard.writeText(url);
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => { copyBtn.textContent = "Copy link"; }, 1600);
+        } catch (e) {
+          window.prompt("Copy this link:", url);
+        }
+      });
+    }
   }
 
   async function main() {
@@ -510,6 +649,11 @@
       showFallback("Itinerary data failed to load. Check that itinerary.json is served next to index.html.");
       return;
     }
+    // Initial hash (default #all if empty so share links stay consistent)
+    if (!window.location.hash) {
+      history.replaceState(null, "", "#all");
+    }
+    applyHash({ scroll: true });
     startMap();
   }
 

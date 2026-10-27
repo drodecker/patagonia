@@ -1,13 +1,25 @@
 {
   "title": "Patagonia Guys Trip — Earth River Futaleufú + Buenos Aires (Argentina exit)",
   "generated": "2026-10-26",
-  "timezone_note": "Local times Chile/Argentina UTC-3 in February. Convert to America/Los_Angeles (PT) for home planning: BA/Chile are UTC-3 = PT+5 in Feb (PST).",
+  "phases": {
+    "pre": "Getting there (HOME → Puerto Varas hotel)",
+    "earth-river": "Earth River multi-lodge (Fri Feb 5 welcome → Fri Feb 12 farewell at Yelcho)",
+    "post": "After Earth River (Sat Feb 13 Yelcho departure → home) — 3 of the group via EQS/BA; others PMC charter"
+  },
+  "hash_anchors": [
+    "#all",
+    "#pre",
+    "#earth-river",
+    "#post",
+    "#leg-N"
+  ],
+  "timezone_note": "Local times Chile/Argentina UTC-3 in February. Convert to America/Los_Angeles (PT): BA/Chile are PT+5 in Feb (PST).",
   "home_airport": "TBD — placeholder HOME uses LAX coords for map only; price LAX and MIA open-jaw options",
-  "earth_river_trip": "Multi-lodge Futaleufú Feb 5–13 2027 (standard return to PMC skipped for Argentina exit)",
   "disclaimer": "Research/planning only. Nothing booked. Estimates marked. Flight numbers not invented for Feb 2027.",
   "legs": [
     {
       "seq": 1,
+      "phase": "pre",
       "date": "2027-02-04",
       "day": "Thu",
       "start_time": "evening ~15:55–22:10",
@@ -33,6 +45,7 @@
     },
     {
       "seq": 2,
+      "phase": "pre",
       "date": "2027-02-05",
       "day": "Fri",
       "start_time": "~10:00–12:30",
@@ -58,6 +71,7 @@
     },
     {
       "seq": 3,
+      "phase": "pre",
       "date": "2027-02-05",
       "day": "Fri",
       "start_time": "on arrival",
@@ -83,6 +97,7 @@
     },
     {
       "seq": 4,
+      "phase": "earth-river",
       "date": "2027-02-05",
       "day": "Fri",
       "start_time": "afternoon",
@@ -103,11 +118,12 @@
       "booking_status": "included",
       "cost_est_usd": "0",
       "confidence": "known",
-      "notes": "Free afternoon in Puerto Varas (Lago Llanquihue, Volcán Osorno views). Meet Maria in hotel lobby 6:30 PM for welcome dinner. Hotel night + dinner included. BAGS: leave travel suitcase / extension gear with Maria before Sat charter — BUT Argentina exit means those bags will NOT return to you at PMC. Travel light (≤28 lb duffel + daypack for whole trip) or confirm with ER how bags get to BA.",
+      "notes": "Free afternoon in Puerto Varas (Lago Llanquihue, Volcán Osorno views). Meet Maria in hotel lobby 6:30 PM for welcome dinner. Hotel night + dinner included. BAGS: travel suitcase normally stays with Maria — but 3 of the group exit via Argentina Sat Feb 13 and will not reclaim PMC bags. Travel light (≤28 lb duffel + daypack for whole trip) or confirm with Eric how bags get to BA.",
       "source": "Earth River PDF Day 2; buenos-aires-post-trip.md §2 luggage"
     },
     {
       "seq": 5,
+      "phase": "earth-river",
       "date": "2027-02-06",
       "day": "Sat",
       "start_time": "morning",
@@ -128,11 +144,12 @@
       "booking_status": "included",
       "cost_est_usd": "0",
       "confidence": "known",
-      "notes": "Maria escorts group to Chaitén flight. Only one bag ≤28 lb + small daypack allowed on charter. Big bags stay with Maria in PMC unless Argentina-exit luggage plan is arranged.",
+      "notes": "Maria escorts group to Chaitén flight. Only one bag ≤28 lb + small daypack allowed on charter. Big bags stay with Maria in PMC unless Argentina-exit luggage plan is arranged for the 3 leaving via Esquel.",
       "source": "Earth River PDF Day 3"
     },
     {
       "seq": 6,
+      "phase": "earth-river",
       "date": "2027-02-06",
       "day": "Sat",
       "start_time": "morning (ER-arranged)",
@@ -158,6 +175,7 @@
     },
     {
       "seq": 7,
+      "phase": "earth-river",
       "date": "2027-02-06",
       "day": "Sat",
       "start_time": "after landing",
@@ -178,11 +196,12 @@
       "booking_status": "included",
       "cost_est_usd": "0",
       "confidence": "known",
-      "notes": "Two-hour bus past turquoise rivers, hanging glaciers, lakes to Futaleufú valley. Safety talk then Class IV rafting series with two safety catarafts. Overnight Lonconao Cottages (lake kayaking, SUP, swim, fish available).",
+      "notes": "Two-hour bus past turquoise rivers, hanging glaciers, lakes to Futaleufú valley. Safety talk then Class IV rafting series with two safety catarafts. Overnight Lonconao Cottages.",
       "source": "Earth River PDF Day 3"
     },
     {
       "seq": 8,
+      "phase": "earth-river",
       "date": "2027-02-06",
       "day": "Sat",
       "start_time": "evening",
@@ -208,6 +227,7 @@
     },
     {
       "seq": 9,
+      "phase": "earth-river",
       "date": "2027-02-07",
       "day": "Sun",
       "start_time": "morning",
@@ -233,6 +253,7 @@
     },
     {
       "seq": 10,
+      "phase": "earth-river",
       "date": "2027-02-08",
       "day": "Mon",
       "start_time": "morning",
@@ -258,6 +279,7 @@
     },
     {
       "seq": 11,
+      "phase": "earth-river",
       "date": "2027-02-09",
       "day": "Tue",
       "start_time": "morning",
@@ -283,6 +305,7 @@
     },
     {
       "seq": 12,
+      "phase": "earth-river",
       "date": "2027-02-09",
       "day": "Tue",
       "start_time": "evening",
@@ -308,6 +331,7 @@
     },
     {
       "seq": 13,
+      "phase": "earth-river",
       "date": "2027-02-10",
       "day": "Wed",
       "start_time": "morning",
@@ -333,6 +357,7 @@
     },
     {
       "seq": 14,
+      "phase": "earth-river",
       "date": "2027-02-11",
       "day": "Thu",
       "start_time": "morning",
@@ -358,6 +383,7 @@
     },
     {
       "seq": 15,
+      "phase": "earth-river",
       "date": "2027-02-12",
       "day": "Fri",
       "start_time": "morning",
@@ -378,11 +404,12 @@
       "booking_status": "included",
       "cost_est_usd": "0",
       "confidence": "known",
-      "notes": "Raft a dozen big rapids; afternoon ~1h bus to Yelcho Lodge on Lago Yelcho. Farewell dinner. This is last ER lodge night before Argentina exit instead of Chaitén→PMC return.",
-      "source": "Earth River PDF Day 9; buenos-aires-post-trip.md"
+      "notes": "Raft a dozen big rapids; afternoon ~1h bus to Yelcho Lodge on Lago Yelcho. Farewell dinner is TONIGHT (Fri Feb 12) at Yelcho — not missed by the Argentina-exit group. Three guests leave Sat morning via Futaleufú/EQS; the rest take the standard Sat charter back to PMC.",
+      "source": "Earth River PDF Day 9"
     },
     {
       "seq": 16,
+      "phase": "earth-river",
       "date": "2027-02-12",
       "day": "Fri",
       "start_time": "evening",
@@ -396,22 +423,23 @@
       "to_lat": -43.22,
       "to_lng": -72.45,
       "mode": "stay",
-      "provider": "Earth River",
+      "provider": "Earth River (farewell dinner)",
       "earth_river_included": "yes",
       "est_duration": "1 night",
       "distance_km": "0",
       "booking_status": "included",
       "cost_est_usd": "0",
       "confidence": "known",
-      "notes": "Farewell dinner. Pack for early Sat departure: no fresh food (SENASA bans fruit/veg/meat/cheese/honey into Argentina). Passports + cash/ARS ready. Confirm with ER in writing: departure time, border vehicle plan, ~$150 credit for skipping Chaitén→PMC charter.",
-      "source": "Earth River PDF Day 9; buenos-aires-post-trip.md §1,§7"
+      "notes": "FAREWELL DINNER Fri Feb 12 at Yelcho (everyone). Pack for Sat: no fresh food into Argentina (SENASA). Passports + ARS/USD ready. OPEN QUESTIONS FOR ERIC: (1) Sat departure time from Yelcho, (2) border crossing method (walk vs vehicle — Chile lists vehicles/buses only), (3) who arranges/pays Argentine remis to EQS, (4) exact ~$150 credit for skipping Chaitén→PMC charter, (5) luggage — big bags normally stay with Maria in PMC.",
+      "source": "Earth River PDF Day 9; Ben/Eric verbal Oct 2026; buenos-aires-post-trip.md"
     },
     {
       "seq": 17,
+      "phase": "post",
       "date": "2027-02-13",
       "day": "Sat",
-      "start_time": "~06:30–07:00",
-      "end_time": "~09:00–09:30",
+      "start_time": "~09:30",
+      "end_time": "~11:30–12:00",
       "from_name": "Yelcho Lodge",
       "from_code": "YEL",
       "from_lat": -43.22,
@@ -421,22 +449,23 @@
       "to_lat": -43.185,
       "to_lng": -71.867,
       "mode": "road-van",
-      "provider": "Earth River arranged (confirm)",
+      "provider": "Earth River vehicle (confirm with Eric)",
       "earth_river_included": "partial",
       "est_duration": "~2h–2h30m",
       "distance_km": "96",
       "booking_status": "TBD",
       "cost_est_usd": "0",
       "confidence": "estimated",
-      "notes": "REPLACES standard Day 10 Chaitén→PMC return. Yelcho→Futaleufú 96 km mostly gravel (Yelcho lodge distance table). Leave early so border opens ~08:00 and you reach EQS by noon. Credit ~$150 verbal via Ben — get in writing. Who drives / vehicle size TBD with ER.",
-      "source": "yelcho.cl distances; buenos-aires-post-trip.md; Ben/Eric verbal Oct 2026"
+      "notes": "ARGENTINA EXIT for 3 of the group (others return Chaitén→PMC charter). Leave Yelcho ~9:30 AM by Earth River vehicle for the 4:00 PM EQS target flight. Yelcho→Futaleufú 96 km mostly gravel (~2–2.5h). Total Yelcho→EQS ~4–5h est. ALT: 1:50 PM EQS flight needs leave ~7:00–7:30 AM. Friday EQS has a ~12:30 flight but is irrelevant (you're still on the river Fri). Confirm departure time with Eric in writing.",
+      "source": "yelcho.cl distances; Ben plan Oct 2026; timing update Oct 26"
     },
     {
       "seq": 18,
+      "phase": "post",
       "date": "2027-02-13",
       "day": "Sat",
-      "start_time": "~09:00",
-      "end_time": "~09:15",
+      "start_time": "~11:45",
+      "end_time": "~12:00",
       "from_name": "Futaleufú town",
       "from_code": "FUT",
       "from_lat": -43.185,
@@ -453,15 +482,16 @@
       "booking_status": "TBD",
       "cost_est_usd": "0",
       "confidence": "known",
-      "notes": "10 km paved to Chilean border post. Chile exit via PDI passport stamp. Keep Chile tourist slip if issued.",
+      "notes": "10 km paved to Chilean border post. Chile exit via PDI. Keep tourist slip if issued. Border typically opens ~08:00 (verify summer 2027 hours).",
       "source": "trans-americas.com/paso-futaleufu-border-chile-argentina/"
     },
     {
       "seq": 19,
+      "phase": "post",
       "date": "2027-02-13",
       "day": "Sat",
-      "start_time": "~09:15",
-      "end_time": "~10:00–10:30",
+      "start_time": "~12:00",
+      "end_time": "~12:45–13:15",
       "from_name": "Paso Futaleufú (Chile)",
       "from_code": "PASO_CL",
       "from_lat": -43.1745,
@@ -471,22 +501,23 @@
       "to_lat": -43.1745,
       "to_lng": -71.74,
       "mode": "walk",
-      "provider": "Self / ER-arranged handoff",
+      "provider": "Self / ER-arranged handoff (METHOD TBD — ask Eric)",
       "earth_river_included": "partial",
       "est_duration": "~45–75 min incl. formalities",
       "distance_km": "~1–2",
       "booking_status": "TBD",
       "cost_est_usd": "0",
       "confidence": "estimated",
-      "notes": "OPEN QUESTION: Chile lists crossing as vehicles/buses only; posts ~3 min drive apart and not integrated. Confirm with ER whether you walk the gap with bags, Chilean vehicle goes through both, or Argentine remis meets at Chile post. US citizens: no Argentina visa ≤90 days, no fee. Bags may be x-rayed. No ATM/exchange/food at either post. SENASA: no fresh food.",
-      "source": "pasosfronterizos.gob.cl; travel.state.gov Argentina; buenos-aires-post-trip.md §1"
+      "notes": "OPEN QUESTION FOR ERIC: crossing method. Chile lists Paso Futaleufú as vehicles/buses only; posts ~3 min drive apart and not integrated. Options: walk the gap with bags, Chilean vehicle through both, or Argentine remis meets at Chile post. US citizens: no Argentina visa ≤90 days. No ATM/exchange at posts. SENASA: no fresh food.",
+      "source": "pasosfronterizos.gob.cl; travel.state.gov; buenos-aires-post-trip.md"
     },
     {
       "seq": 20,
+      "phase": "post",
       "date": "2027-02-13",
       "day": "Sat",
-      "start_time": "~10:30",
-      "end_time": "~12:00–12:30",
+      "start_time": "~13:00",
+      "end_time": "~14:30–15:00",
       "from_name": "Paso Futaleufú (Argentina)",
       "from_code": "PASO_AR",
       "from_lat": -43.1745,
@@ -496,21 +527,22 @@
       "to_lat": -42.9078,
       "to_lng": -71.1395,
       "mode": "taxi",
-      "provider": "Argentine remis/taxi (ER may arrange)",
+      "provider": "Argentine remis/taxi (ER may arrange — who pays? ask Eric)",
       "earth_river_included": "no",
       "est_duration": "~1h30m",
       "distance_km": "~65",
       "booking_status": "TBD",
       "cost_est_usd": "50–100",
       "confidence": "estimated",
-      "notes": "Eric/Ben: ~1.5h taxi to EQS. Route: gravel to Trevelin (~40 km) then paved RN259 to Esquel/EQS. Prepay via ER or bring ARS/crisp USD — no cards confirmed at remis. Cost TBD.",
-      "source": "buenos-aires-post-trip.md; Ben email summary Oct 2026"
+      "notes": "~1.5h taxi to EQS (Eric/Ben). Gravel to Trevelin then paved RN259. Prepay via ER or bring ARS/crisp USD. OPEN: who pays the remis? With ~9:30 Yelcho leave → ~14:30–15:00 at EQS works for 4:00 PM flight; tight for 1:50 PM.",
+      "source": "Ben/Eric verbal; buenos-aires-post-trip.md"
     },
     {
       "seq": 21,
+      "phase": "post",
       "date": "2027-02-13",
       "day": "Sat",
-      "start_time": "~16:00",
+      "start_time": "~16:00 (4:00 PM)",
       "end_time": "~18:15",
       "from_name": "Esquel (EQS)",
       "from_code": "EQS",
@@ -528,11 +560,12 @@
       "booking_status": "to book",
       "cost_est_usd": "80–200",
       "confidence": "estimated",
-      "notes": "Only airline on EQS–AEP. Sat afternoons historically have 1–2 flights. KAYAK showed Sat 13 Feb deal EQS 16:00→AEP 18:15 ARS ~187k (~US$120). Feb 2027 timetable not fully published — do NOT treat 16:00 as booked; verify aerolineas.com.ar. Don't book before ~13:30 given ground timing. Backup: overnight Trevelin/Esquel + Sunday flight, or via Bariloche (BRC).",
-      "source": "kayak.com.ar EQS-AEP; 2lnr.com/routes/eqs-aep; buenos-aires-post-trip.md §1"
+      "notes": "TARGET: Aerolíneas EQS→AEP ~4:00 PM (16:00→18:15 pattern; KAYAK Sat 13 Feb deal ~ARS 187k / ~US$120). Flight # not invented — verify aerolineas.com.ar for Feb 2027. ALT: ~1:50 PM departure needs leaving Yelcho ~7–7:30 AM. Fri ~12:30 EQS flight exists historically but you are still at Yelcho Fri. Backup: overnight Trevelin/Esquel + Sunday flight.",
+      "source": "kayak.com.ar EQS-AEP; 2lnr.com/routes/eqs-aep; timing update Oct 26"
     },
     {
       "seq": 22,
+      "phase": "post",
       "date": "2027-02-13",
       "day": "Sat",
       "start_time": "~18:30",
@@ -553,11 +586,12 @@
       "booking_status": "to book",
       "cost_est_usd": "10–20",
       "confidence": "estimated",
-      "notes": "Hotel TBD: Fierro (~$246–320), Home (~$180–260) Palermo; Palacio Duhau (~$400–600) Recoleta. Prefer Palermo for nightlife. Late parrilla dinner (Don Julio: reserve 90 days ahead ~mid-Nov).",
+      "notes": "Hotel TBD: Fierro (~$246–320), Home (~$180–260) Palermo; Palacio Duhau (~$400–600) Recoleta. Prefer Palermo for nightlife. Late parrilla (Don Julio: reserve 90 days ahead ~mid-Nov).",
       "source": "buenos-aires-post-trip.md §4"
     },
     {
       "seq": 23,
+      "phase": "post",
       "date": "2027-02-13",
       "day": "Sat",
       "start_time": "evening",
@@ -578,11 +612,12 @@
       "booking_status": "to book",
       "cost_est_usd": "180–320",
       "confidence": "estimated",
-      "notes": "Night 1 of ~3 in BA. Active-guys plan: steak + Palermo bars (nightlife from ~11pm; clubs peak 2–3am).",
+      "notes": "Night 1 of ~3 in BA for the Argentina-exit trio. Steak + Palermo bars.",
       "source": "buenos-aires-post-trip.md §4,§6"
     },
     {
       "seq": 24,
+      "phase": "post",
       "date": "2027-02-14",
       "day": "Sun",
       "start_time": "morning",
@@ -603,11 +638,12 @@
       "booking_status": "to book",
       "cost_est_usd": "180–320",
       "confidence": "estimated",
-      "notes": "Suggested: morning bike tour Palermo/Recoleta (~$45–56, Biker Street) or San Telmo Sunday feria; Recoleta Cemetery; Don Julio dinner if booked. Fútbol: Feb 2027 fixtures not published — check LandingPad BA / Tangol if Boca or River home.",
+      "notes": "Suggested: morning bike tour Palermo/Recoleta (~$45–56) or San Telmo Sunday feria; Recoleta Cemetery; Don Julio dinner if booked. Fútbol fixtures Feb 2027 not published yet.",
       "source": "buenos-aires-post-trip.md §4"
     },
     {
       "seq": 25,
+      "phase": "post",
       "date": "2027-02-15",
       "day": "Mon",
       "start_time": "~08:00–08:30",
@@ -628,11 +664,12 @@
       "booking_status": "to book",
       "cost_est_usd": "40–50",
       "confidence": "estimated",
-      "notes": "Presidents' Day. Passport required; immigration at port — arrive 60–90 min early. Buquebus ~08:30; Colonia Express ~08:00. Round trip ~US$80–95 (ARS ~128–150k Oct 2026). UNESCO Barrio Histórico, Calle de los Suspiros, lighthouse, chivito + Tannat.",
-      "source": "coloniaexpress.com; viajecoloniauruguay.com.ar; buenos-aires-post-trip.md §3"
+      "notes": "Presidents' Day. Passport required; arrive port 60–90 min early. Round trip ~US$80–95. UNESCO Barrio Histórico, chivito + Tannat.",
+      "source": "coloniaexpress.com; buenos-aires-post-trip.md §3"
     },
     {
       "seq": 26,
+      "phase": "post",
       "date": "2027-02-15",
       "day": "Mon",
       "start_time": "~18:15–18:45",
@@ -653,11 +690,12 @@
       "booking_status": "to book",
       "cost_est_usd": "40–50",
       "confidence": "estimated",
-      "notes": "Return evening sailing. Night out in Palermo. (Cost shown as half of RT estimate; book as round trip.)",
+      "notes": "Return evening sailing. Night out in Palermo. (Half of RT estimate; book as round trip.)",
       "source": "buenos-aires-post-trip.md §3"
     },
     {
       "seq": 27,
+      "phase": "post",
       "date": "2027-02-15",
       "day": "Mon",
       "start_time": "evening",
@@ -683,6 +721,7 @@
     },
     {
       "seq": 28,
+      "phase": "post",
       "date": "2027-02-16",
       "day": "Tue",
       "start_time": "afternoon",
@@ -703,11 +742,12 @@
       "booking_status": "to book",
       "cost_est_usd": "20–40",
       "confidence": "estimated",
-      "notes": "Allow 2.5–3h before international departure. Free morning: La Boca/Bombonera museum tour (daytime only), shopping, steak sandwich. If hotel was near AEP and you somehow fly from AEP domestic — you still need EZE for US nonstops.",
+      "notes": "Allow 2.5–3h before international departure. Free morning: La Boca daytime, shopping.",
       "source": "buenos-aires-post-trip.md §5–6"
     },
     {
       "seq": 29,
+      "phase": "post",
       "date": "2027-02-16",
       "day": "Tue",
       "start_time": "~21:00–23:55",
@@ -728,8 +768,8 @@
       "booking_status": "to book",
       "cost_est_usd": "370–660",
       "confidence": "estimated",
-      "notes": "Overnight EZE→US. Nonstops: MIA (AA908 ~22:50), JFK (AA953 ~23:20), ATL (Delta ~20:55), IAH (United ~22:05/23:55), DFW (AA seasonal). No nonstop to EWR or LAX found — LAX needs 1-stop (~$465–660; LATAM via LIM sample $564). EZE→MIA nonstop evidence ~$450–494 (AirHint Feb 2027). Land Wed morning. Or depart Wed night → land Thu.",
-      "source": "deals.airhint.com EZE/MIA; kayak EZE-LAX; buenos-aires-post-trip.md §5"
+      "notes": "Overnight EZE→US. Nonstops: MIA, JFK, ATL, IAH, DFW. No nonstop to EWR or LAX found. Land Wed morning (or Wed night → Thu).",
+      "source": "deals.airhint.com; buenos-aires-post-trip.md §5"
     }
   ]
 }

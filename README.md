@@ -60,3 +60,21 @@ Edit / regenerate with the Python generator used to build this folder (or edit C
 - Earth River ~$150 credit and remis arrangement in writing
 - Luggage left with Maria in PMC when skipping return
 - Home airport (LAX/MIA/…) and exact Feb 2027 Aerolíneas EQS–AEP flight number
+
+## Phase filters & share links
+
+Tabs: **All** · **Getting there** (`pre`) · **Earth River** (`earth-river`) · **After Earth River** (`post`).
+
+Hash anchors (persist in the URL; Copy link button copies the current view):
+
+| Hash | View |
+|---|---|
+| `#all` | Full itinerary |
+| `#pre` | Getting there (HOME → Puerto Varas) |
+| `#earth-river` | Earth River lodges through Fri Feb 12 farewell at Yelcho |
+| `#post` | After Earth River — Sat Feb 13 Argentina exit for 3 guests → BA → home |
+| `#leg-N` | Opens leg N (also switches to that leg's phase) |
+
+Share example for Ben: `https://patagonia.rodecker.com/#post`
+
+Sat Feb 13 timing (post): leave Yelcho ~**9:30 AM** → border → ~1.5h taxi → EQS for target **4:00 PM** Aerolíneas to AEP. Alt 1:50 PM needs ~7–7:30 AM leave. Farewell dinner is **Fri Feb 12** at Yelcho (not missed). Others return via Chaitén→PMC charter.
