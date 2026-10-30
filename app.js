@@ -176,7 +176,7 @@
     const legs = filteredLegs();
     const label = PHASE_LABEL[state.filter] || state.filter;
     $("#status").textContent =
-      `${legs.length} of ${state.legs.length} legs · ${label} · home airport TBD · research only`;
+      `${legs.length} of ${state.legs.length} legs · ${label} · home LAX · research only`;
 
     host.innerHTML = legs.map((leg) => {
       const icon = MODE_ICON[leg.mode] || "•";
