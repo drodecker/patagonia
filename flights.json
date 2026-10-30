@@ -1,0 +1,76 @@
+{
+  "title": "Airfare to book",
+  "rows": [
+    {
+      "id": "1a",
+      "route": "LAX→SCL",
+      "date": "Thu Feb 4, 2027",
+      "time": "Evening dep, overnight (arr Fri AM)",
+      "carrier": "LATAM (nonstop or 1-stop)",
+      "est_fare": "TBD (with 1b) [est]",
+      "notes": "Book together with 1b on one ticket.",
+      "status": "To book",
+      "legs": [
+        1
+      ]
+    },
+    {
+      "id": "1b",
+      "route": "SCL→PMC",
+      "date": "Fri Feb 5, 2027",
+      "time": "Morning; arrive by early afternoon",
+      "carrier": "LATAM",
+      "est_fare": "Included with 1a [est]",
+      "notes": "ER welcome dinner 6:30 PM in Puerto Varas.",
+      "status": "To book",
+      "legs": [
+        2
+      ]
+    },
+    {
+      "id": "2",
+      "route": "EQS→AEP",
+      "date": "Sat Feb 13, 2027",
+      "time": "1:50 PM (backup 4:00 PM)",
+      "carrier": "Aerolíneas Argentinas",
+      "est_fare": "~$120 [est]",
+      "notes": "Book together with Ben & Larry.",
+      "status": "To book",
+      "legs": [
+        22
+      ]
+    },
+    {
+      "id": "3",
+      "route": "EZE→MDE",
+      "date": "Wed Feb 17, 2027",
+      "time": "~2:35 AM → ~7:10 AM (red-eye)",
+      "carrier": "Avianca AV112 or JetSMART JA5850",
+      "est_fare": "~$185–330 [est]",
+      "notes": "Confirm the flight operates that weekday.",
+      "status": "To book",
+      "legs": [
+        30
+      ]
+    },
+    {
+      "id": "4",
+      "route": "MDE→LAX",
+      "date": "Fri Feb 19 or Sat Feb 20, 2027",
+      "time": "Daytime, 1 stop",
+      "carrier": "Avianca via SAL or Copa via PTY",
+      "est_fare": "~$300–500 [est]",
+      "notes": "Consider one multi-city ticket with #1.",
+      "status": "To book",
+      "legs": [
+        35
+      ]
+    }
+  ],
+  "footnotes": [
+    "Earth River's Chaitén→Puerto Montt charter is not needed (Argentina exit).",
+    "Consider booking #1 (1a+1b) and #4 as one multi-city ticket.",
+    "Times for #2 and #3 are from current schedules; reconfirm for 2027.",
+    "All fares are estimates."
+  ]
+}

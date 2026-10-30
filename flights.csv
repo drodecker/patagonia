@@ -1,0 +1,6 @@
+#,route,date,time,carrier,est_fare,booking_notes,status,related_legs
+1a,LAX→SCL,"Thu Feb 4, 2027","Evening dep, overnight (arr Fri AM)",LATAM (nonstop or 1-stop),TBD (with 1b) [est],Book together with 1b on one ticket.,To book,1
+1b,SCL→PMC,"Fri Feb 5, 2027",Morning; arrive by early afternoon,LATAM,Included with 1a [est],ER welcome dinner 6:30 PM in Puerto Varas.,To book,2
+2,EQS→AEP,"Sat Feb 13, 2027",1:50 PM (backup 4:00 PM),Aerolíneas Argentinas,~$120 [est],Book together with Ben & Larry.,To book,22
+3,EZE→MDE,"Wed Feb 17, 2027",~2:35 AM → ~7:10 AM (red-eye),Avianca AV112 or JetSMART JA5850,~$185–330 [est],Confirm the flight operates that weekday.,To book,30
+4,MDE→LAX,"Fri Feb 19 or Sat Feb 20, 2027","Daytime, 1 stop",Avianca via SAL or Copa via PTY,~$300–500 [est],Consider one multi-city ticket with #1.,To book,35

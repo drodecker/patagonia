@@ -18,13 +18,14 @@
     charter: "#ec7063",
     stay: "#85929e",
   };
-  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post", "medellin"]);
+  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post", "medellin", "flights"]);
   const PHASE_LABEL = {
     all: "All",
     pre: "Getting there",
     "earth-river": "Earth River",
     post: "After Earth River",
     medellin: "Medellín",
+    flights: "Flights to book",
   };
 
   const state = {
@@ -70,6 +71,10 @@
 
   function filteredLegs() {
     if (state.filter === "all") return state.legs.slice();
+    if (state.filter === "flights") {
+      const s = new Set((state.flights.rows || []).flatMap((r) => r.legs));
+      return state.legs.filter((l) => s.has(l.seq));
+    }
     return state.legs.filter((l) => l.phase === state.filter);
   }
 
@@ -118,7 +123,8 @@
 
   function setHashFromState(replace) {
     let hash;
-    if (state.activeSeq) hash = "leg-" + state.activeSeq;
+    if (state.filter === "flights") hash = "flights";
+    else if (state.activeSeq) hash = "leg-" + state.activeSeq;
     else hash = state.filter === "all" ? "all" : state.filter;
     const next = "#" + hash;
     if (window.location.hash === next) return;
@@ -179,7 +185,7 @@
     $("#status").textContent =
       `${legs.length} of ${state.legs.length} legs · ${label} · home LAX · research only`;
 
-    host.innerHTML = legs.map((leg) => {
+    host.innerHTML = (state.filter === "flights" ? flightsTableHtml() : "") + legs.map((leg) => {
       const icon = MODE_ICON[leg.mode] || "•";
       const same = leg.from_code === leg.to_code && leg.mode === "stay";
       const route = same
@@ -217,6 +223,15 @@
         </article>`;
     }).join("");
 
+    host.querySelectorAll("tr[data-legs]").forEach((tr) => {
+      const go = () => {
+        host.querySelectorAll("tr.on").forEach((x) => x.classList.remove("on"));
+        tr.classList.add("on");
+        selectLeg(+tr.dataset.legs.split(",")[0], { fromList: true });
+      };
+      tr.addEventListener("click", go);
+      tr.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
+    });
     host.querySelectorAll(".leg-summary").forEach((el) => {
       const activate = () => {
         const seq = +el.closest(".leg").dataset.seq;
@@ -238,12 +253,28 @@
     }
   }
 
+  function flightsTableHtml() {
+    const f = state.flights || {};
+    const rows = (f.rows || []).map((r) => `
+      <tr data-legs="${r.legs.join(",")}" tabindex="0" title="Show on map">
+        <td data-l="#">${escapeHtml(r.id)}</td><td data-l="Route"><strong>${escapeHtml(r.route)}</strong></td>
+        <td data-l="Date">${escapeHtml(r.date)}</td><td data-l="Time">${escapeHtml(r.time)}</td>
+        <td data-l="Carrier">${escapeHtml(r.carrier)}</td><td data-l="Est. fare">${escapeHtml(r.est_fare)}</td>
+        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge to-book">${escapeHtml(r.status)}</span></td>
+      </tr>`).join("");
+    const foot = (f.footnotes || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
+    return `<section class="flights" id="flights-table"><h2>Airfare to book</h2>
+      <div class="tbl-wrap"><table class="flights-tbl"><thead><tr><th>#</th><th>Route</th><th>Date</th><th>Time</th><th>Carrier</th><th>Est. fare</th><th>Booking notes</th><th>Status</th></tr></thead>
+      <tbody>${rows}</tbody></table></div><ul class="foot">${foot}</ul>
+      <a class="btn" href="flights.csv" download="patagonia-flights.csv">Download flights CSV</a></section>`;
+  }
+
   function selectLeg(seq, opts) {
     opts = opts || {};
     const leg = state.legs.find((l) => l.seq === seq);
     if (!leg) return;
     // If leg is outside current filter, switch filter to its phase
-    if (state.filter !== "all" && leg.phase !== state.filter) {
+    if (state.filter !== "all" && state.filter !== "flights" && leg.phase !== state.filter) {
       state.filter = leg.phase;
       syncChips();
       renderList();
@@ -614,6 +645,8 @@
     if (!res.ok) throw new Error("Failed to load itinerary.json");
     const data = await res.json();
     state.legs = data.legs || [];
+    try { const fr = await fetch("flights.json", { cache: "no-store" }); state.flights = fr.ok ? await fr.json() : { rows: [] }; }
+    catch (e) { state.flights = { rows: [] }; }
     $("#title").textContent = data.title || "Patagonia Itinerary";
   }
 
@@ -626,6 +659,8 @@
     window.addEventListener("hashchange", () => applyHash({ scroll: true }));
     window.addEventListener("popstate", () => applyHash({ scroll: true }));
 
+    const fb = $("#flights-btn");
+    if (fb) fb.addEventListener("click", (e) => { e.preventDefault(); setFilter("flights"); });
     const copyBtn = $("#copy-link");
     if (copyBtn) {
       copyBtn.addEventListener("click", async () => {
