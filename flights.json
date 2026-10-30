@@ -9,10 +9,11 @@
       "carrier": "LATAM (nonstop or 1-stop)",
       "est_fare": "TBD (with 1b) [est]",
       "notes": "Book together with 1b on one ticket.",
-      "status": "To book",
+      "status": "You book",
       "legs": [
         1
-      ]
+      ],
+      "included": false
     },
     {
       "id": "1b",
@@ -22,9 +23,24 @@
       "carrier": "LATAM",
       "est_fare": "Included with 1a [est]",
       "notes": "NOT included by Earth River — guest books; email flight details to info@earthriver.com. ER welcome dinner 6:30 PM in Puerto Varas.",
-      "status": "To book",
+      "status": "You book",
       "legs": [
         2
+      ],
+      "included": false
+    },
+    {
+      "id": "ER",
+      "route": "PMC→WCH (Chaitén)",
+      "date": "Sat Feb 6, 2027",
+      "time": "Morning (ER-arranged)",
+      "carrier": "Earth River charter",
+      "est_fare": "Included",
+      "notes": "Already covered by Earth River — nothing to book.",
+      "status": "Included – Earth River",
+      "included": true,
+      "legs": [
+        6
       ]
     },
     {
@@ -35,10 +51,11 @@
       "carrier": "Aerolíneas Argentinas",
       "est_fare": "~$120 [est]",
       "notes": "Book together with Ben & Larry.",
-      "status": "To book",
+      "status": "You book",
       "legs": [
         22
-      ]
+      ],
+      "included": false
     },
     {
       "id": "3",
@@ -48,10 +65,11 @@
       "carrier": "Avianca AV112 or JetSMART JA5850",
       "est_fare": "~$185–330 [est]",
       "notes": "Confirm the flight operates that weekday.",
-      "status": "To book",
+      "status": "You book",
       "legs": [
         30
-      ]
+      ],
+      "included": false
     },
     {
       "id": "4",
@@ -61,14 +79,15 @@
       "carrier": "Avianca via SAL or Copa via PTY",
       "est_fare": "~$300–500 [est]",
       "notes": "Consider one multi-city ticket with #1.",
-      "status": "To book",
+      "status": "You book",
       "legs": [
         35
-      ]
+      ],
+      "included": false
     }
   ],
   "footnotes": [
-    "Earth River's Chaitén→Puerto Montt charter is not needed (Argentina exit).",
+    "The return Chaitén→Puerto Montt charter is not needed (Argentina exit); the outbound PMC→Chaitén charter is included by Earth River.",
     "Consider booking #1 (1a+1b) and #4 as one multi-city ticket.",
     "Times for #2 and #3 are from current schedules; reconfirm for 2027.",
     "All fares are estimates."

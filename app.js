@@ -202,7 +202,7 @@
             <div class="mode-icon" title="${escapeHtml(leg.mode)}">${icon}</div>
             <div class="route">${route}<span class="codes">${codes}</span></div>
             <div class="meta-right">
-              ${erBadge(leg.earth_river_included)}
+              ${state.filter === "flights" ? (leg.earth_river_included === "yes" ? '<span class="badge er-incl">Included – Earth River</span>' : '<span class="badge to-book">You book</span>') : erBadge(leg.earth_river_included)}
               <span>${escapeHtml(leg.est_duration || "")}</span>
             </div>
           </div>
@@ -260,7 +260,7 @@
         <td data-l="#">${escapeHtml(r.id)}</td><td data-l="Route"><strong>${escapeHtml(r.route)}</strong></td>
         <td data-l="Date">${escapeHtml(r.date)}</td><td data-l="Time">${escapeHtml(r.time)}</td>
         <td data-l="Carrier">${escapeHtml(r.carrier)}</td><td data-l="Est. fare">${escapeHtml(r.est_fare)}</td>
-        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge to-book">${escapeHtml(r.status)}</span></td>
+        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge ${r.included ? "er-incl" : "to-book"}">${escapeHtml(r.included ? "Included – Earth River" : "You book")}</span></td>
       </tr>`).join("");
     const foot = (f.footnotes || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
     return `<section class="flights" id="flights-table"><h2>Airfare to book</h2>
@@ -292,7 +292,7 @@
       node.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
     if (!opts.skipHash) setHashFromState(false);
-    focusMapOnLeg(seq);
+    try { focusMapOnLeg(seq); } catch (e) { console.warn("map focus failed", e); }
   }
 
   function lineStyle(mode) {
@@ -489,8 +489,10 @@
   function refreshMap() {
     if (!state.mapReady) return;
     const legs = filteredLegs();
-    if (state.provider === "mapbox") paintMapbox(legs);
-    if (state.provider === "google") paintGoogle(legs);
+    try {
+      if (state.provider === "mapbox") paintMapbox(legs);
+      if (state.provider === "google") paintGoogle(legs);
+    } catch (e) { console.warn("map paint failed (list still filtered)", e); }
   }
 
   function focusMapOnLeg(seq) {
@@ -650,10 +652,14 @@
   }
 
   function wireFilters() {
-    document.querySelectorAll(".chip[data-filter]").forEach((chip) => {
-      chip.addEventListener("click", () => {
-        setFilter(chip.dataset.filter);
-      });
+    const bar = document.querySelector(".filter-bar");
+    if (bar) bar.addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip[data-filter]");
+      if (!chip) return;
+      e.preventDefault();
+      setFilter(chip.dataset.filter);
+      const list = document.getElementById("leg-list");
+      if (list && window.innerWidth < 900) list.scrollIntoView({ behavior: "smooth", block: "start" });
     });
     window.addEventListener("hashchange", () => applyHash({ scroll: true }));
     window.addEventListener("popstate", () => applyHash({ scroll: true }));

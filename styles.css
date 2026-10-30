@@ -337,3 +337,6 @@ header .actions {
 .badge.to-book{background:rgba(245,176,65,.2);color:#f5b041}.flights .foot{font-size:.75rem;opacity:.8;padding-left:18px}
 @media (max-width:720px){.flights-tbl thead{display:none}.flights-tbl tr{display:block;border:1px solid rgba(255,255,255,.12);border-radius:8px;margin-bottom:8px;padding:4px}
 .flights-tbl td{display:flex;gap:8px;border:0;padding:3px 6px}.flights-tbl td::before{content:attr(data-l);min-width:76px;opacity:.6}}
+.badge.er-incl{background:rgba(46,204,113,.2);color:#2ecc71}
+.chip{touch-action:manipulation;position:relative;z-index:2}
+.filter-bar{position:relative;z-index:5}

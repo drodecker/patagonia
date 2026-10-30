@@ -5,6 +5,7 @@ RUN apk add --no-cache gettext
 
 COPY index.html styles.css app.js itinerary.csv itinerary.json flights.csv flights.json config.js.template /usr/share/nginx/html/
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker-entrypoint.sh /docker-entrypoint-patagonia.sh
 RUN chmod +x /docker-entrypoint-patagonia.sh
 
