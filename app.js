@@ -18,12 +18,13 @@
     charter: "#ec7063",
     stay: "#85929e",
   };
-  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post"]);
+  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post", "medellin"]);
   const PHASE_LABEL = {
     all: "All",
     pre: "Getting there",
     "earth-river": "Earth River",
     post: "After Earth River",
+    medellin: "Medellín",
   };
 
   const state = {
@@ -63,7 +64,7 @@
   }
 
   function phaseBadge(phase) {
-    const labels = { pre: "Pre", "earth-river": "ER trip", post: "Post" };
+    const labels = { pre: "Pre", "earth-river": "ER trip", post: "Post", medellin: "MDE" };
     return `<span class="badge phase-${phase || ""}">${labels[phase] || phase || ""}</span>`;
   }
 

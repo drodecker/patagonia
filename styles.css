@@ -328,3 +328,4 @@ header .actions {
 }
 .mapboxgl-popup-content strong, .gm-style .gm-style-iw-d strong { font-weight: 700; }
 .mapboxgl-popup-close-button { color: #333 !important; font-size: 18px; }
+.badge.phase-medellin { background: rgba(175,122,197,.2); color: #af7ac5; }

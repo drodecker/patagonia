@@ -73,6 +73,7 @@ Hash anchors (persist in the URL; Copy link button copies the current view):
 | `#pre` | Getting there (HOME → Puerto Varas) |
 | `#earth-river` | Earth River lodges through Fri Feb 12 farewell at Yelcho |
 | `#post` | After Earth River — Sat Feb 13 Argentina exit for 3 guests → BA → home |
+| `#medellin` | Medellín add-on (Feb 17–19/20) → LAX |
 | `#leg-N` | Opens leg N (also switches to that leg's phase) |
 
 Share example for Ben: `https://patagonia.rodecker.com/#post`
