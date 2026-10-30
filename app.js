@@ -265,8 +265,7 @@
     const foot = (f.footnotes || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
     return `<section class="flights" id="flights-table"><h2>Airfare to book</h2>
       <div class="tbl-wrap"><table class="flights-tbl"><thead><tr><th>#</th><th>Route</th><th>Date</th><th>Time</th><th>Carrier</th><th>Est. fare</th><th>Booking notes</th><th>Status</th></tr></thead>
-      <tbody>${rows}</tbody></table></div><ul class="foot">${foot}</ul>
-      <a class="btn" href="flights.csv" download="patagonia-flights.csv">Download flights CSV</a></section>`;
+      <tbody>${rows}</tbody></table></div><ul class="foot">${foot}</ul></section>`;
   }
 
   function selectLeg(seq, opts) {
