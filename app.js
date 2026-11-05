@@ -69,7 +69,7 @@
 
   function erBadge(v) {
     const k = (v || "no").toLowerCase();
-    const label = k === "yes" ? "ER included" : k === "partial" ? "ER partial" : "On your own";
+    const label = k === "yes" ? "EarthRiver" : k === "partial" ? "EarthRiver (partial)" : "On your own";
     return `<span class="badge ${k}">${label}</span>`;
   }
 
@@ -218,7 +218,7 @@
             <div class="mode-icon" title="${escapeHtml(leg.mode)}">${icon}</div>
             <div class="route">${route}<span class="codes">${codes}</span></div>
             <div class="meta-right">
-              ${state.filter === "flights" ? (leg.earth_river_included === "yes" ? '<span class="badge er-incl">EarthRiver</span>' : /^Booked/i.test(leg.booking_status || "") ? '<span class="badge booked">Booked</span>' : '<span class="badge to-book">You book</span>') : erBadge(leg.earth_river_included)} ${peopleChips(leg.people)}
+              ${state.filter === "flights" ? (leg.earth_river_included === "yes" ? '<span class="badge er-incl">EarthRiver</span>' : /^Booked/i.test(leg.booking_status || "") ? '<span class="badge booked">Booked</span>' : '<span class="badge to-book">You book</span>') : erBadge(leg.earth_river_included)} ${leg.earth_river_included === "yes" ? "" : peopleChips(leg.people)}
               <span>${escapeHtml(leg.est_duration || "")}</span>
             </div>
           </div>
@@ -229,7 +229,7 @@
               <dt>Times</dt><dd>${escapeHtml(leg.start_time || "—")} → ${escapeHtml(leg.end_time || "—")}</dd>
               <dt>Distance</dt><dd>${leg.distance_km != null && leg.distance_km !== "" ? escapeHtml(String(leg.distance_km)) + " km" : "—"}</dd>
               <dt>Cost (est.)</dt><dd>${leg.cost_est_usd != null && leg.cost_est_usd !== "" ? "$" + escapeHtml(String(leg.cost_est_usd)) + " USD" : "—"} · ${escapeHtml(leg.confidence || "")}</dd>
-              <dt>Booking</dt><dd>${escapeHtml(leg.booking_status || "")}</dd>
+              <dt>Booking</dt><dd>${escapeHtml(/^included$/i.test(leg.booking_status || "") ? "EarthRiver" : (leg.booking_status || ""))}</dd>
               <dt>From</dt><dd>${escapeHtml(leg.from_name)} (${escapeHtml(leg.from_code || "")})</dd>
               <dt>To</dt><dd>${escapeHtml(leg.to_name)} (${escapeHtml(leg.to_code || "")})</dd>
             </dl>
@@ -273,7 +273,7 @@
     const app = document.querySelector(".app"), r = $("#resizer");
     if (!app || !r) return;
     const saved = parseInt(localStorage.getItem("listW") || "", 10);
-    if (saved) app.style.setProperty("--list-w", saved + "px");
+    if (saved && saved >= 300 && saved <= window.innerWidth - 240) app.style.setProperty("--list-w", saved + "px");
     const set = (w) => {
       w = Math.max(300, Math.min(window.innerWidth - 240, w));
       app.style.setProperty("--list-w", w + "px");
@@ -307,7 +307,7 @@
         <td data-l="#">${escapeHtml(r.id)}</td><td data-l="Route"><strong>${escapeHtml(r.route)}</strong></td>
         <td data-l="Date">${escapeHtml(r.date)}</td><td data-l="Time">${escapeHtml(r.time)}</td>
         <td data-l="Carrier">${escapeHtml(r.carrier)}</td><td data-l="Est. fare">${escapeHtml(r.est_fare)}</td>
-        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge ${r.included ? "er-incl" : r.booked ? "booked" : "to-book"}">${escapeHtml(r.status || (r.included ? "EarthRiver" : "You book"))}</span> ${peopleChips(r.people)}</td>
+        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge ${r.included ? "er-incl" : r.booked ? "booked" : "to-book"}">${escapeHtml(r.status || (r.included ? "EarthRiver" : "You book"))}</span> ${r.included ? "" : peopleChips(r.people)}</td>
       </tr>`).join("");
     const foot = (f.footnotes || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
     return `<section class="flights" id="flights-table"><h2>Flights</h2>

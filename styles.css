@@ -344,7 +344,7 @@ header .actions {
 
 /* resizable split + category empty states */
 .app > header { grid-column: 1 / -1; }
-.resizer { grid-row: 2; cursor: col-resize; background: rgba(255,255,255,.08); touch-action: none; }
+.resizer { grid-row: 2; grid-column: 2; cursor: col-resize; background: rgba(255,255,255,.08); touch-action: none; }
 .resizer:hover, .resizer:focus, .app.resizing .resizer { background: #5dade2; outline: none; }
 .app.resizing { user-select: none; cursor: col-resize; }
 .app.resizing #map { pointer-events: none; }
@@ -358,3 +358,8 @@ header .actions {
 
 .badge.person{background:#eef2ff;color:#1e3a8a;border:1px solid #c7d2fe;margin-left:2px}
 .badge.p-earthriver{background:#dcfce7;color:#14532d;border-color:#86efac}
+
+/* explicit placement: resizer's grid-row pushed list-pane into the 6px column */
+.list-pane { grid-row: 2; grid-column: 1; min-width: 0; min-height: 0; }
+.map-pane { grid-row: 2; grid-column: 3; min-width: 0; }
+@media (max-width: 860px) { .list-pane, .map-pane, .resizer { grid-column: 1; grid-row: auto; } }
