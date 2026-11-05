@@ -46,6 +46,7 @@
     mapbox: { map: null, markers: [] },
   };
 
+  function peopleChips(p){return (p||[]).map(n=>`<span class="badge person p-${n.toLowerCase()}">${n}</span>`).join(' ');}
   function $(sel) { return document.querySelector(sel); }
   function cfg() { return window.PATAGONIA_CONFIG || {}; }
 
@@ -217,7 +218,7 @@
             <div class="mode-icon" title="${escapeHtml(leg.mode)}">${icon}</div>
             <div class="route">${route}<span class="codes">${codes}</span></div>
             <div class="meta-right">
-              ${state.filter === "flights" ? (leg.earth_river_included === "yes" ? '<span class="badge er-incl">Included – Earth River</span>' : /^Booked/i.test(leg.booking_status || "") ? '<span class="badge booked">Booked</span>' : '<span class="badge to-book">You book</span>') : erBadge(leg.earth_river_included)}
+              ${state.filter === "flights" ? (leg.earth_river_included === "yes" ? '<span class="badge er-incl">EarthRiver</span>' : /^Booked/i.test(leg.booking_status || "") ? '<span class="badge booked">Booked</span>' : '<span class="badge to-book">You book</span>') : erBadge(leg.earth_river_included)} ${peopleChips(leg.people)}
               <span>${escapeHtml(leg.est_duration || "")}</span>
             </div>
           </div>
@@ -306,7 +307,7 @@
         <td data-l="#">${escapeHtml(r.id)}</td><td data-l="Route"><strong>${escapeHtml(r.route)}</strong></td>
         <td data-l="Date">${escapeHtml(r.date)}</td><td data-l="Time">${escapeHtml(r.time)}</td>
         <td data-l="Carrier">${escapeHtml(r.carrier)}</td><td data-l="Est. fare">${escapeHtml(r.est_fare)}</td>
-        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge ${r.included ? "er-incl" : r.booked ? "booked" : "to-book"}">${escapeHtml(r.status || (r.included ? "Included – Earth River" : "You book"))}</span></td>
+        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge ${r.included ? "er-incl" : r.booked ? "booked" : "to-book"}">${escapeHtml(r.status || (r.included ? "EarthRiver" : "You book"))}</span> ${peopleChips(r.people)}</td>
       </tr>`).join("");
     const foot = (f.footnotes || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
     return `<section class="flights" id="flights-table"><h2>Flights</h2>

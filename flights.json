@@ -14,7 +14,11 @@
         1
       ],
       "included": false,
-      "booked": true
+      "booked": true,
+      "people": [
+        "Dave",
+        "Brian"
+      ]
     },
     {
       "id": "1b",
@@ -29,7 +33,11 @@
         2
       ],
       "included": false,
-      "booked": true
+      "booked": true,
+      "people": [
+        "Dave",
+        "Brian"
+      ]
     },
     {
       "id": "ER",
@@ -37,14 +45,19 @@
       "date": "Sat Feb 6, 2027",
       "time": "Morning (ER-arranged; be at PMC by 10:30 AM)",
       "carrier": "Earth River charter",
-      "est_fare": "Included",
+      "est_fare": "EarthRiver",
       "notes": "Already covered by Earth River — nothing to book.",
-      "status": "Included – Earth River",
+      "status": "EarthRiver",
       "legs": [
         6
       ],
       "included": true,
-      "booked": false
+      "booked": false,
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "id": "2",
@@ -59,7 +72,12 @@
         22
       ],
       "included": false,
-      "booked": true
+      "booked": true,
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "id": "3",
@@ -74,7 +92,10 @@
         32
       ],
       "included": false,
-      "booked": true
+      "booked": true,
+      "people": [
+        "Dave"
+      ]
     },
     {
       "id": "4",
@@ -89,7 +110,10 @@
         33
       ],
       "included": false,
-      "booked": true
+      "booked": true,
+      "people": [
+        "Dave"
+      ]
     }
   ],
   "footnotes": [

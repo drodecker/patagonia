@@ -1,7 +1,7 @@
 #,route,date,time,carrier,est_fare,booking_notes,status,related_legs
 1a,LAX→SCL,"Thu Feb 4, 2027",1:55 PM → 5:35 AM Fri (10h40m),Delta DL6012,Paid,Confirmation HG42F5.,Booked – HG42F5,1
 1b,SCL→PMC,"Fri Feb 5, 2027",9:42 AM → 11:27 AM (1h45m),Delta DL6727,Paid,Confirmation HG42F5. Email details to info@earthriver.com.,Booked – HG42F5,2
-ER,PMC→WCH (Chaitén),"Sat Feb 6, 2027",Morning (ER-arranged; be at PMC by 10:30 AM),Earth River charter,Included,Already covered by Earth River — nothing to book.,Included – Earth River,6
+ER,PMC→WCH (Chaitén),"Sat Feb 6, 2027",Morning (ER-arranged; be at PMC by 10:30 AM),Earth River charter,EarthRiver,Already covered by Earth River — nothing to book.,EarthRiver,6
 2,EQS→AEP,"Sat Feb 13, 2027",1:55 PM → 4:10 PM (2h15m),Aerolíneas Argentinas AR 1817 (737-800),Paid,Same flight as Ben.,Booked – confirmed,22
 3,EZE→LIM,"Thu Feb 18, 2027",8:05 PM → 10:55 PM (4h50m),Delta DL6377,Paid,Confirmation HG42F5.,Booked – HG42F5,32
 4,LIM→LAX,"Fri Feb 19, 2027",12:50 AM → 6:45 AM (8h55m),Delta DL6064,Paid,Confirmation HG42F5.,Booked – HG42F5,33

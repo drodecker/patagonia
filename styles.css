@@ -355,3 +355,6 @@ header .actions {
   .resizer { display: none; }
   .app { grid-template-columns: 1fr !important; }
 }
+
+.badge.person{background:#eef2ff;color:#1e3a8a;border:1px solid #c7d2fe;margin-left:2px}
+.badge.p-earthriver{background:#dcfce7;color:#14532d;border-color:#86efac}

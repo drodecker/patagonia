@@ -44,7 +44,11 @@
       "cost_est_usd": "paid",
       "confidence": "booked",
       "notes": "BOOKED. LAX 1:55 PM Thu → SCL 5:35 AM Fri, confirmation HG42F5. ~4h connection in SCL to DL6727 → PMC (clear immigration, bags, SAG, re-check).",
-      "source": "User booking HG42F5"
+      "source": "User booking HG42F5",
+      "people": [
+        "Dave",
+        "Brian"
+      ]
     },
     {
       "seq": 2,
@@ -70,7 +74,11 @@
       "cost_est_usd": "paid",
       "confidence": "booked",
       "notes": "BOOKED, confirmation HG42F5. Not included by Earth River — email flight details to info@earthriver.com. Lands 11:27 AM; taxi to Puerto Varas.",
-      "source": "User booking HG42F5"
+      "source": "User booking HG42F5",
+      "people": [
+        "Dave",
+        "Brian"
+      ]
     },
     {
       "seq": 3,
@@ -96,7 +104,11 @@
       "cost_est_usd": "30",
       "confidence": "known",
       "notes": "Walk outside PMC, hire taxi to hotel. Room waiting under your name. Address: Imperial 0561, Puerto Varas (ex-Cumbres). Phone 065-222000. Maria contact if delayed: +56 9 9544 4941 / +56 9 9321 2995; mariainchile02@hotmail.com.",
-      "source": "Earth River PDF Getting There"
+      "source": "Earth River PDF Getting There",
+      "people": [
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 4,
@@ -122,7 +134,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Free afternoon in Puerto Varas (Lago Llanquihue, Volcán Osorno views). Meet Maria in hotel lobby 6:30 PM for welcome dinner. Hotel night + dinner included. BAGS: travel suitcase normally stays with Maria — but 3 of the group exit via Argentina Sat Feb 13 and will not reclaim PMC bags. Travel light (≤28 lb duffel + daypack for whole trip) or confirm with Eric how bags get to BA.",
-      "source": "Earth River PDF Day 2; buenos-aires-post-trip.md §2 luggage"
+      "source": "Earth River PDF Day 2; buenos-aires-post-trip.md §2 luggage",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 5,
@@ -148,7 +165,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Maria escorts group to Chaitén flight. Only one bag ≤28 lb + small daypack allowed on charter. Big bags stay with Maria in PMC unless Argentina-exit luggage plan is arranged for the 3 leaving via Esquel.",
-      "source": "Earth River PDF Day 3"
+      "source": "Earth River PDF Day 3",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 6,
@@ -174,7 +196,12 @@
       "cost_est_usd": "160",
       "confidence": "estimated",
       "notes": "Spectacular coastal flight. Seat cannot be bought online — ER adds R/T PMC–Chaitén to your balance (~$250–$320 R/T in PDFs; one-way half ~$160 est for accounting). Weight limit: one bag ≤28 lb + daypack.",
-      "source": "Earth River PDF Day 3 / What’s Not Included ($250 vs $320 conflict)"
+      "source": "Earth River PDF Day 3 / What’s Not Included ($250 vs $320 conflict)",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 7,
@@ -200,7 +227,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Two-hour bus past turquoise rivers, hanging glaciers, lakes to Futaleufú valley. Safety talk then Class IV rafting series with two safety catarafts. Overnight Lonconao Cottages.",
-      "source": "Earth River PDF Day 3"
+      "source": "Earth River PDF Day 3",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 8,
@@ -226,7 +258,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Night 1 of 3 at Lonconao. Cottages: two large bedrooms, great room, deck overlooking lake and peaks. Meals included (guides cook at Lonconao).",
-      "source": "Earth River PDF Day 3"
+      "source": "Earth River PDF Day 3",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 9,
@@ -252,7 +289,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "4-mile mountain bike along Río Espolón to put-in; Class II–III inflatable kayaks (or guided small raft option). Overnight Lonconao night 2.",
-      "source": "Earth River PDF Day 4"
+      "source": "Earth River PDF Day 4",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 10,
@@ -278,7 +320,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Class IV Upper Futaleufú Canyon. Lunch at Zeta Rapid; optional 12–40 ft cliff jump. Overnight Lonconao night 3.",
-      "source": "Earth River PDF Day 5"
+      "source": "Earth River PDF Day 5",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 11,
@@ -304,7 +351,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Mountain bike on dirt road to Río Azul put-in; Class III+ inflatable kayaks (raft option). Move to Peuma Eco-Lodge in hidden valley — hot tub, boardwalk cabins, Teton-like spires.",
-      "source": "Earth River PDF Day 6"
+      "source": "Earth River PDF Day 6",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 12,
@@ -330,7 +382,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "First of 3 nights at Peuma (nights Tue–Thu). Masseuse available nights at Peuma (extra charge).",
-      "source": "Earth River PDF Day 6"
+      "source": "Earth River PDF Day 6",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 13,
@@ -356,7 +413,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Morning raft to Río Blanco slot canyon: hike/climb/swim through boulders, pools, waterfalls. Then Terminator and Himalayas rapids (hike-out option for Terminator). Night Peuma.",
-      "source": "Earth River PDF Day 7"
+      "source": "Earth River PDF Day 7",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 14,
@@ -382,7 +444,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Hardest day: hike through ancient forest/waterfalls to Lago Obsession (hanging blue lake, granite tooth). Easier forest walk or horseback alternative offered. Night Peuma.",
-      "source": "Earth River PDF Day 8"
+      "source": "Earth River PDF Day 8",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 15,
@@ -408,7 +475,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Raft a dozen big rapids; afternoon ~1h bus to Yelcho Lodge on Lago Yelcho. Farewell dinner is TONIGHT (Fri Feb 12) at Yelcho — not missed by the Argentina-exit group. Three guests leave Sat morning via Futaleufú/EQS; the rest take the standard Sat charter back to PMC.",
-      "source": "Earth River PDF Day 9"
+      "source": "Earth River PDF Day 9",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 16,
@@ -434,7 +506,12 @@
       "cost_est_usd": "0",
       "confidence": "known",
       "notes": "Fri Feb 12 at Yelcho (everyone). Pack for Sat: no fresh food into Argentina (SENASA). Passports + ARS/USD ready. OPEN QUESTIONS FOR ERIC: (1) Sat departure time from Yelcho, (2) border crossing method (walk vs vehicle — Chile lists vehicles/buses only), (3) who arranges/pays Argentine remis to EQS, (4) exact ~$150 credit for skipping Chaitén→PMC charter, (5) luggage — big bags normally stay with Maria in PMC. (Argentina-route trio departs to Futaleufú after last takeout instead.)",
-      "source": "Earth River PDF Day 9; Ben/Eric verbal Oct 2026; buenos-aires-post-trip.md"
+      "source": "Earth River PDF Day 9; Ben/Eric verbal Oct 2026; buenos-aires-post-trip.md",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 17,
@@ -460,7 +537,12 @@
       "cost_est_usd": "0",
       "confidence": "confirmed-plan",
       "notes": "Fri Feb 12: after the last rafting takeout, Earth River drives the group east to Futaleufú town. Travelers on this route: Ben, Dave (David), Larry. Others return via Chaitén→PMC charter. NOTE: Eric's email said 'January 15/16' — likely a typo; confirm Feb 12/13 in writing.",
-      "source": "Eric (Earth River) email, Oct 2026"
+      "source": "Eric (Earth River) email, Oct 2026",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 18,
@@ -486,7 +568,12 @@
       "cost_est_usd": "0",
       "confidence": "confirmed-plan",
       "notes": "ER-paid triple room for Ben, Dave, Larry. NOTE: Eric's email said 'January 15/16' — likely a typo; confirm Feb 12/13 in writing.",
-      "source": "Eric (Earth River) email, Oct 2026"
+      "source": "Eric (Earth River) email, Oct 2026",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 19,
@@ -512,7 +599,12 @@
       "cost_est_usd": "0",
       "confidence": "confirmed-plan",
       "notes": "ER morning pickup; leave Futaleufú ~8:30–9:00 AM for the recommended 1:50 PM EQS flight. Clear Chilean immigration.",
-      "source": "Eric (Earth River) email, Oct 2026"
+      "source": "Eric (Earth River) email, Oct 2026",
+      "people": [
+        "EarthRiver",
+        "Dave",
+        "Ben"
+      ]
     },
     {
       "seq": 20,
@@ -538,7 +630,12 @@
       "cost_est_usd": "0",
       "confidence": "confirmed-plan",
       "notes": "Walk ~0.5 mi on pavement to the Argentine post; clear Argentine immigration/customs. Pack to carry/roll your bags.",
-      "source": "Eric (Earth River) email, Oct 2026"
+      "source": "Eric (Earth River) email, Oct 2026",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 21,
@@ -564,7 +661,12 @@
       "cost_est_usd": "100–200",
       "confidence": "confirmed-plan",
       "notes": "$100 cash per taxi; likely 2 taxis = $200 total (ER will advise). Bring USD cash.",
-      "source": "Eric (Earth River) email, Oct 2026"
+      "source": "Eric (Earth River) email, Oct 2026",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 22,
@@ -590,7 +692,12 @@
       "cost_est_usd": "paid",
       "confidence": "booked",
       "notes": "CONFIRMED AR 1817 EQS 1:55 PM → AEP 4:10 PM. Same flight as Ben.",
-      "source": "User booking"
+      "source": "User booking",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 23,
@@ -616,7 +723,12 @@
       "cost_est_usd": "10–20",
       "confidence": "estimated",
       "notes": "Hotel TBD: Fierro (~$246–320), Home (~$180–260) Palermo; Palacio Duhau (~$400–600) Recoleta. Prefer Palermo for nightlife. Late parrilla (Don Julio: reserve 90 days ahead ~mid-Nov).",
-      "source": "buenos-aires-post-trip.md §4"
+      "source": "buenos-aires-post-trip.md §4",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 24,
@@ -642,7 +754,12 @@
       "cost_est_usd": "180–320",
       "confidence": "estimated",
       "notes": "Night 1 of ~3 in BA for the Argentina-exit trio. Steak + Palermo bars.",
-      "source": "buenos-aires-post-trip.md §4,§6"
+      "source": "buenos-aires-post-trip.md §4,§6",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 25,
@@ -668,7 +785,12 @@
       "cost_est_usd": "180–320",
       "confidence": "estimated",
       "notes": "Suggested: morning bike tour Palermo/Recoleta (~$45–56) or San Telmo Sunday feria; Recoleta Cemetery; Don Julio dinner if booked. Fútbol fixtures Feb 2027 not published yet.",
-      "source": "buenos-aires-post-trip.md §4"
+      "source": "buenos-aires-post-trip.md §4",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 26,
@@ -694,7 +816,12 @@
       "cost_est_usd": "40–50",
       "confidence": "estimated",
       "notes": "Presidents' Day. Passport required; arrive port 60–90 min early. Round trip ~US$80–95. UNESCO Barrio Histórico, chivito + Tannat.",
-      "source": "coloniaexpress.com; buenos-aires-post-trip.md §3"
+      "source": "coloniaexpress.com; buenos-aires-post-trip.md §3",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 27,
@@ -720,7 +847,12 @@
       "cost_est_usd": "40–50",
       "confidence": "estimated",
       "notes": "Return evening sailing. Night out in Palermo. (Half of RT estimate; book as round trip.)",
-      "source": "buenos-aires-post-trip.md §3"
+      "source": "buenos-aires-post-trip.md §3",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 28,
@@ -746,7 +878,12 @@
       "cost_est_usd": "180–320",
       "confidence": "estimated",
       "notes": "Buenos Aires stay continues (David staying on for call-center talent search).",
-      "source": "buenos-aires-post-trip.md §6"
+      "source": "buenos-aires-post-trip.md §6",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 29,
@@ -772,7 +909,12 @@
       "cost_est_usd": "180–320",
       "confidence": "estimated",
       "notes": "Call-center talent search in Buenos Aires (interviews/meetings).",
-      "source": "plan"
+      "source": "plan",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 30,
@@ -798,7 +940,12 @@
       "cost_est_usd": "180–320",
       "confidence": "estimated",
       "notes": "Call-center talent search in Buenos Aires. Last hotel night (Thu night is on the plane).",
-      "source": "plan"
+      "source": "plan",
+      "people": [
+        "Dave",
+        "Ben",
+        "Larry"
+      ]
     },
     {
       "seq": 31,
@@ -824,7 +971,10 @@
       "cost_est_usd": "30–40",
       "confidence": "estimated",
       "notes": "Late checkout Thu; be at EZE ~3h before 8:05 PM international departure.",
-      "source": "route est"
+      "source": "route est",
+      "people": [
+        "Dave"
+      ]
     },
     {
       "seq": 32,
@@ -850,7 +1000,10 @@
       "cost_est_usd": "paid",
       "confidence": "booked",
       "notes": "BOOKED, confirmation HG42F5. ~1h55m connection in LIM.",
-      "source": "User booking HG42F5"
+      "source": "User booking HG42F5",
+      "people": [
+        "Dave"
+      ]
     },
     {
       "seq": 33,
@@ -876,7 +1029,17 @@
       "cost_est_usd": "paid",
       "confidence": "booked",
       "notes": "BOOKED, confirmation HG42F5. Overnight; lands LAX 6:45 AM PT Fri Feb 19.",
-      "source": "User booking HG42F5"
+      "source": "User booking HG42F5",
+      "people": [
+        "Dave"
+      ]
     }
+  ],
+  "travelers": [
+    "Dave",
+    "Brian",
+    "Ben",
+    "Larry",
+    "Jackson"
   ]
 }
