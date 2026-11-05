@@ -1,95 +1,99 @@
 {
-  "title": "Airfare to book",
+  "title": "Flights",
   "rows": [
     {
       "id": "1a",
       "route": "LAX→SCL",
       "date": "Thu Feb 4, 2027",
-      "time": "Evening dep, overnight (arr Fri AM)",
-      "carrier": "LATAM (nonstop or 1-stop)",
-      "est_fare": "TBD (with 1b) [est]",
-      "notes": "Book together with 1b on one ticket.",
-      "status": "You book",
+      "time": "1:55 PM → 5:35 AM Fri (10h40m)",
+      "carrier": "Delta DL6012",
+      "est_fare": "Paid",
+      "notes": "Confirmation HG42F5.",
+      "status": "Booked – HG42F5",
       "legs": [
         1
       ],
-      "included": false
+      "included": false,
+      "booked": true
     },
     {
       "id": "1b",
       "route": "SCL→PMC",
       "date": "Fri Feb 5, 2027",
-      "time": "Morning; arrive by early afternoon",
-      "carrier": "LATAM",
-      "est_fare": "Included with 1a [est]",
-      "notes": "NOT included by Earth River — guest books; email flight details to info@earthriver.com. ER welcome dinner 6:30 PM in Puerto Varas.",
-      "status": "You book",
+      "time": "9:42 AM → 11:27 AM (1h45m)",
+      "carrier": "Delta DL6727",
+      "est_fare": "Paid",
+      "notes": "Confirmation HG42F5. Email details to info@earthriver.com.",
+      "status": "Booked – HG42F5",
       "legs": [
         2
       ],
-      "included": false
+      "included": false,
+      "booked": true
     },
     {
       "id": "ER",
       "route": "PMC→WCH (Chaitén)",
       "date": "Sat Feb 6, 2027",
-      "time": "Morning (ER-arranged)",
+      "time": "Morning (ER-arranged; be at PMC by 10:30 AM)",
       "carrier": "Earth River charter",
       "est_fare": "Included",
       "notes": "Already covered by Earth River — nothing to book.",
       "status": "Included – Earth River",
-      "included": true,
       "legs": [
         6
-      ]
+      ],
+      "included": true,
+      "booked": false
     },
     {
       "id": "2",
       "route": "EQS→AEP",
       "date": "Sat Feb 13, 2027",
-      "time": "1:50 PM (backup 4:00 PM)",
-      "carrier": "Aerolíneas Argentinas",
-      "est_fare": "~$120 [est]",
-      "notes": "Book together with Ben & Larry.",
-      "status": "You book",
+      "time": "1:55 PM → 4:10 PM (2h15m)",
+      "carrier": "Aerolíneas Argentinas AR 1817 (737-800)",
+      "est_fare": "Paid",
+      "notes": "Same flight as Ben.",
+      "status": "Booked – confirmed",
       "legs": [
         22
       ],
-      "included": false
+      "included": false,
+      "booked": true
     },
     {
       "id": "3",
-      "route": "EZE→MDE",
-      "date": "Wed Feb 17, 2027",
-      "time": "~2:35 AM → ~7:10 AM (red-eye)",
-      "carrier": "Avianca AV112 or JetSMART JA5850",
-      "est_fare": "~$185–330 [est]",
-      "notes": "Confirm the flight operates that weekday.",
-      "status": "You book",
+      "route": "EZE→LIM",
+      "date": "Thu Feb 18, 2027",
+      "time": "8:05 PM → 10:55 PM (4h50m)",
+      "carrier": "Delta DL6377",
+      "est_fare": "Paid",
+      "notes": "Confirmation HG42F5.",
+      "status": "Booked – HG42F5",
       "legs": [
-        30
+        32
       ],
-      "included": false
+      "included": false,
+      "booked": true
     },
     {
       "id": "4",
-      "route": "MDE→LAX",
-      "date": "Fri Feb 19 or Sat Feb 20, 2027",
-      "time": "Daytime, 1 stop",
-      "carrier": "Avianca via SAL or Copa via PTY",
-      "est_fare": "~$300–500 [est]",
-      "notes": "Consider one multi-city ticket with #1.",
-      "status": "You book",
+      "route": "LIM→LAX",
+      "date": "Fri Feb 19, 2027",
+      "time": "12:50 AM → 6:45 AM (8h55m)",
+      "carrier": "Delta DL6064",
+      "est_fare": "Paid",
+      "notes": "Confirmation HG42F5.",
+      "status": "Booked – HG42F5",
       "legs": [
-        35
+        33
       ],
-      "included": false
+      "included": false,
+      "booked": true
     }
   ],
   "footnotes": [
-    "The return Chaitén→Puerto Montt charter is not needed (Argentina exit); the outbound PMC→Chaitén charter is included by Earth River.",
-    "Consider booking #1 (1a+1b) and #4 as one multi-city ticket.",
-    "Times for #2 and #3 are from current schedules; reconfirm for 2027.",
-    "All fares are estimates."
+    "All flights booked. Delta flights are on confirmation HG42F5 (likely LATAM-operated codeshares — check in via Delta/LATAM).",
+    "PMC→Chaitén charter is included by Earth River; return charter not needed (Argentina exit)."
   ]
 }

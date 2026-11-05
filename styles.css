@@ -328,7 +328,7 @@ header .actions {
 }
 .mapboxgl-popup-content strong, .gm-style .gm-style-iw-d strong { font-weight: 700; }
 .mapboxgl-popup-close-button { color: #333 !important; font-size: 18px; }
-.badge.phase-medellin { background: rgba(175,122,197,.2); color: #af7ac5; }
+.badge.phase-home { background: rgba(175,122,197,.2); color: #af7ac5; }
 
 .flights{padding:8px 4px 12px}.flights h2{font-size:1rem;margin:4px 0 8px}
 .tbl-wrap{overflow-x:auto}.flights-tbl{width:100%;border-collapse:collapse;font-size:.8rem}
@@ -340,3 +340,4 @@ header .actions {
 .badge.er-incl{background:rgba(46,204,113,.2);color:#2ecc71}
 .chip{touch-action:manipulation;position:relative;z-index:2}
 .filter-bar{position:relative;z-index:5}
+.badge.booked { background: rgba(46,204,113,.2); color: #2ecc71; }

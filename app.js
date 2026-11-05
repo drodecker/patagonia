@@ -18,14 +18,14 @@
     charter: "#ec7063",
     stay: "#85929e",
   };
-  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post", "medellin", "flights"]);
+  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post", "home", "flights"]);
   const PHASE_LABEL = {
     all: "All",
     pre: "Getting there",
     "earth-river": "Earth River",
     post: "After Earth River",
-    medellin: "Medellín",
-    flights: "Flights to book",
+    home: "Home",
+    flights: "Flights",
   };
 
   const state = {
@@ -65,7 +65,7 @@
   }
 
   function phaseBadge(phase) {
-    const labels = { pre: "Pre", "earth-river": "ER trip", post: "Post", medellin: "MDE" };
+    const labels = { pre: "Pre", "earth-river": "ER trip", post: "Post", home: "Home" };
     return `<span class="badge phase-${phase || ""}">${labels[phase] || phase || ""}</span>`;
   }
 
@@ -183,7 +183,7 @@
     const legs = filteredLegs();
     const label = PHASE_LABEL[state.filter] || state.filter;
     $("#status").textContent =
-      `${legs.length} of ${state.legs.length} legs · ${label} · home LAX · research only`;
+      `${legs.length} of ${state.legs.length} legs · ${label} · home LAX`;
 
     host.innerHTML = (state.filter === "flights" ? flightsTableHtml() : "") + legs.map((leg) => {
       const icon = MODE_ICON[leg.mode] || "•";
@@ -202,7 +202,7 @@
             <div class="mode-icon" title="${escapeHtml(leg.mode)}">${icon}</div>
             <div class="route">${route}<span class="codes">${codes}</span></div>
             <div class="meta-right">
-              ${state.filter === "flights" ? (leg.earth_river_included === "yes" ? '<span class="badge er-incl">Included – Earth River</span>' : '<span class="badge to-book">You book</span>') : erBadge(leg.earth_river_included)}
+              ${state.filter === "flights" ? (leg.earth_river_included === "yes" ? '<span class="badge er-incl">Included – Earth River</span>' : /^Booked/i.test(leg.booking_status || "") ? '<span class="badge booked">Booked</span>' : '<span class="badge to-book">You book</span>') : erBadge(leg.earth_river_included)}
               <span>${escapeHtml(leg.est_duration || "")}</span>
             </div>
           </div>
@@ -260,10 +260,10 @@
         <td data-l="#">${escapeHtml(r.id)}</td><td data-l="Route"><strong>${escapeHtml(r.route)}</strong></td>
         <td data-l="Date">${escapeHtml(r.date)}</td><td data-l="Time">${escapeHtml(r.time)}</td>
         <td data-l="Carrier">${escapeHtml(r.carrier)}</td><td data-l="Est. fare">${escapeHtml(r.est_fare)}</td>
-        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge ${r.included ? "er-incl" : "to-book"}">${escapeHtml(r.included ? "Included – Earth River" : "You book")}</span></td>
+        <td data-l="Notes">${escapeHtml(r.notes)}</td><td data-l="Status"><span class="badge ${r.included ? "er-incl" : r.booked ? "booked" : "to-book"}">${escapeHtml(r.status || (r.included ? "Included – Earth River" : "You book"))}</span></td>
       </tr>`).join("");
     const foot = (f.footnotes || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("");
-    return `<section class="flights" id="flights-table"><h2>Airfare to book</h2>
+    return `<section class="flights" id="flights-table"><h2>Flights</h2>
       <div class="tbl-wrap"><table class="flights-tbl"><thead><tr><th>#</th><th>Route</th><th>Date</th><th>Time</th><th>Carrier</th><th>Est. fare</th><th>Booking notes</th><th>Status</th></tr></thead>
       <tbody>${rows}</tbody></table></div><ul class="foot">${foot}</ul></section>`;
   }

@@ -1,7 +1,7 @@
 #,route,date,time,carrier,est_fare,booking_notes,status,related_legs
-1a,LAX→SCL,"Thu Feb 4, 2027","Evening dep, overnight (arr Fri AM)",LATAM (nonstop or 1-stop),TBD (with 1b) [est],Book together with 1b on one ticket.,You book,1
-1b,SCL→PMC,"Fri Feb 5, 2027",Morning; arrive by early afternoon,LATAM,Included with 1a [est],NOT included by Earth River — guest books; email flight details to info@earthriver.com. ER welcome dinner 6:30 PM in Puerto Varas.,You book,2
-ER,PMC→WCH (Chaitén),"Sat Feb 6, 2027",Morning (ER-arranged),Earth River charter,Included,Already covered by Earth River — nothing to book.,Included – Earth River,6
-2,EQS→AEP,"Sat Feb 13, 2027",1:50 PM (backup 4:00 PM),Aerolíneas Argentinas,~$120 [est],Book together with Ben & Larry.,You book,22
-3,EZE→MDE,"Wed Feb 17, 2027",~2:35 AM → ~7:10 AM (red-eye),Avianca AV112 or JetSMART JA5850,~$185–330 [est],Confirm the flight operates that weekday.,You book,30
-4,MDE→LAX,"Fri Feb 19 or Sat Feb 20, 2027","Daytime, 1 stop",Avianca via SAL or Copa via PTY,~$300–500 [est],Consider one multi-city ticket with #1.,You book,35
+1a,LAX→SCL,"Thu Feb 4, 2027",1:55 PM → 5:35 AM Fri (10h40m),Delta DL6012,Paid,Confirmation HG42F5.,Booked – HG42F5,1
+1b,SCL→PMC,"Fri Feb 5, 2027",9:42 AM → 11:27 AM (1h45m),Delta DL6727,Paid,Confirmation HG42F5. Email details to info@earthriver.com.,Booked – HG42F5,2
+ER,PMC→WCH (Chaitén),"Sat Feb 6, 2027",Morning (ER-arranged; be at PMC by 10:30 AM),Earth River charter,Included,Already covered by Earth River — nothing to book.,Included – Earth River,6
+2,EQS→AEP,"Sat Feb 13, 2027",1:55 PM → 4:10 PM (2h15m),Aerolíneas Argentinas AR 1817 (737-800),Paid,Same flight as Ben.,Booked – confirmed,22
+3,EZE→LIM,"Thu Feb 18, 2027",8:05 PM → 10:55 PM (4h50m),Delta DL6377,Paid,Confirmation HG42F5.,Booked – HG42F5,32
+4,LIM→LAX,"Fri Feb 19, 2027",12:50 AM → 6:45 AM (8h55m),Delta DL6064,Paid,Confirmation HG42F5.,Booked – HG42F5,33
