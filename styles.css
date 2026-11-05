@@ -27,7 +27,7 @@ html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
 
 .app {
   display: grid;
-  grid-template-columns: minmax(340px, 420px) 1fr;
+  grid-template-columns: var(--list-w, minmax(460px, 46vw)) 6px 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
   height: 100dvh;
@@ -341,3 +341,17 @@ header .actions {
 .chip{touch-action:manipulation;position:relative;z-index:2}
 .filter-bar{position:relative;z-index:5}
 .badge.booked { background: rgba(46,204,113,.2); color: #2ecc71; }
+
+/* resizable split + category empty states */
+.app > header { grid-column: 1 / -1; }
+.resizer { grid-row: 2; cursor: col-resize; background: rgba(255,255,255,.08); touch-action: none; }
+.resizer:hover, .resizer:focus, .app.resizing .resizer { background: #5dade2; outline: none; }
+.app.resizing { user-select: none; cursor: col-resize; }
+.app.resizing #map { pointer-events: none; }
+.chip.cat { border-style: dashed; }
+.empty-cat { padding: 24px 16px; text-align: center; opacity: .85; }
+.empty-cat .fields { font-size: 12px; opacity: .7; }
+@media (max-width: 860px) {
+  .resizer { display: none; }
+  .app { grid-template-columns: 1fr !important; }
+}

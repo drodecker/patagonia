@@ -18,7 +18,12 @@
     charter: "#ec7063",
     stay: "#85929e",
   };
-  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post", "home", "flights"]);
+  const PHASE_FILTERS = new Set(["all", "pre", "earth-river", "post", "home", "flights", "stays", "dining", "activities"]);
+  const CATEGORIES = {
+    stays: { label: "Stays", fields: "name · city · check-in/out · nights · confirmation · cost · Earth River included?" },
+    dining: { label: "Dining", fields: "name · city · date/time · party · reservation status · link" },
+    activities: { label: "Activities", fields: "name · city · date/time · type (tour, show, meeting) · cost · link" },
+  };
   const PHASE_LABEL = {
     all: "All",
     pre: "Getting there",
@@ -26,6 +31,9 @@
     post: "After Earth River",
     home: "Home",
     flights: "Flights",
+    stays: "Stays",
+    dining: "Dining",
+    activities: "Activities",
   };
 
   const state = {
@@ -71,6 +79,7 @@
 
   function filteredLegs() {
     if (state.filter === "all") return state.legs.slice();
+    if (CATEGORIES[state.filter]) return [];
     if (state.filter === "flights") {
       const s = new Set((state.flights.rows || []).flatMap((r) => r.legs));
       return state.legs.filter((l) => s.has(l.seq));
@@ -185,6 +194,12 @@
     $("#status").textContent =
       `${legs.length} of ${state.legs.length} legs · ${label} · home LAX`;
 
+    if (CATEGORIES[state.filter]) {
+      const c = CATEGORIES[state.filter];
+      $("#status").textContent = `0 ${c.label.toLowerCase()} yet · ${c.label}`;
+      host.innerHTML = `<div class="empty-cat"><h2>${c.label}</h2><p>Nothing added yet.</p><p class="fields">Each card will show: ${c.fields}</p></div>`;
+      return;
+    }
     host.innerHTML = (state.filter === "flights" ? flightsTableHtml() : "") + legs.map((leg) => {
       const icon = MODE_ICON[leg.mode] || "•";
       const same = leg.from_code === leg.to_code && leg.mode === "stay";
@@ -251,6 +266,37 @@
         if (sum) sum.setAttribute("aria-expanded", "true");
       }
     }
+  }
+
+  function initResizer() {
+    const app = document.querySelector(".app"), r = $("#resizer");
+    if (!app || !r) return;
+    const saved = parseInt(localStorage.getItem("listW") || "", 10);
+    if (saved) app.style.setProperty("--list-w", saved + "px");
+    const set = (w) => {
+      w = Math.max(300, Math.min(window.innerWidth - 240, w));
+      app.style.setProperty("--list-w", w + "px");
+      localStorage.setItem("listW", String(Math.round(w)));
+      resizeMap();
+    };
+    r.addEventListener("pointerdown", (e) => {
+      e.preventDefault(); r.setPointerCapture(e.pointerId); app.classList.add("resizing");
+      const mv = (ev) => set(ev.clientX);
+      const up = () => { app.classList.remove("resizing"); r.removeEventListener("pointermove", mv); r.removeEventListener("pointerup", up); };
+      r.addEventListener("pointermove", mv); r.addEventListener("pointerup", up);
+    });
+    r.addEventListener("keydown", (e) => {
+      const cur = document.querySelector(".list-pane").getBoundingClientRect().width;
+      if (e.key === "ArrowLeft") set(cur - 40); else if (e.key === "ArrowRight") set(cur + 40);
+    });
+    r.addEventListener("dblclick", () => { localStorage.removeItem("listW"); app.style.removeProperty("--list-w"); resizeMap(); });
+  }
+
+  function resizeMap() {
+    try {
+      if (state.mapbox.map) state.mapbox.map.resize();
+      if (state.google.map && window.google) google.maps.event.trigger(state.google.map, "resize");
+    } catch (e) {}
   }
 
   function flightsTableHtml() {
@@ -652,6 +698,7 @@
   }
 
   function wireFilters() {
+    initResizer();
     const bar = document.querySelector(".filter-bar");
     if (bar) bar.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip[data-filter]");
